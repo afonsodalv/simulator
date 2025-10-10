@@ -1,0 +1,11 @@
+# ninja log v6
+101	1005	7815485564001522	CMakeFiles/simulator.dir/Buffer/Buffer.cpp.obj	eb7668df903d7a32
+16	974	7817249880456052	CMakeFiles/simulator.dir/SimulationManager/SimulationManager.cpp.obj	d310d18e53ac5466
+6	852	7817249880354676	CMakeFiles/simulator.dir/main.cpp.obj	968e12d094723a09
+1075	1269	7817249891030730	simulator.exe	175a939c54243488
+40	711	7817244491475679	CMakeFiles/simulator.dir/UI/Buffer/Buffer.cpp.obj	1802b8dcbbe6ac29
+14	427	7817356685262996	build.ninja	7bfe3a00fdbd1260
+12	1074	7817249880414817	CMakeFiles/simulator.dir/Data/Simulation/Simulation.cpp.obj	60dfa803c6d2120b
+21	844	7817249880499517	CMakeFiles/simulator.dir/UI/Render/Render.cpp.obj	fafc533cafd54
+46	159	7816404165772093	CMakeFiles/simulator.dir/Data/City/City.cpp.obj	43aa4c343abb66f8
+25	954	7817249880539508	CMakeFiles/simulator.dir/Managers/CityManager/CityManager.cpp.obj	4778bf2cccb15737
