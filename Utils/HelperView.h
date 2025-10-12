@@ -13,7 +13,6 @@ namespace view {
         switch (type) {
             case Type::Mountain: return '+';
             case Type::Desert: return '.';
-            case Type::Bandit:      return '!';
             case Type::Item:        return '?';
             case Type::Storm:       return '~';
             default:                      return '.';

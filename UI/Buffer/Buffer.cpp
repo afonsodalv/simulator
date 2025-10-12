@@ -131,7 +131,7 @@ void Buffer::reset_cursor() {
 }
 
 void Buffer::print_string(const std::string& str) const {
-    cout<<str;
+    cout<<str<<endl;
 }
 
 

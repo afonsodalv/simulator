@@ -5,10 +5,18 @@
 #ifndef COMMERCIALCARAVAN_H
 #define COMMERCIALCARAVAN_H
 
+#include "..\\Caravan.h"
 
 
-class CommercialCaravan {
+class CommercialCaravan : public Caravan {
 
+    static int max_crew;
+    static int max_cargo;
+    static int max_water;
+    static int initial_crew;
+public:
+    CommercialCaravan(char id, int row, int col);
+    void move() override;
 };
 
 

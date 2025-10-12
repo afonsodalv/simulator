@@ -6,9 +6,14 @@
 #define BANDITCARAVAN_H
 
 
+#include "..\\Caravan.h"
 
-class BanditCaravan {
+class BanditCaravan : public Caravan {
 
+    static int initial_crew;
+public:
+    BanditCaravan(char id, int row, int col);
+    void move() override;
 };
 
 

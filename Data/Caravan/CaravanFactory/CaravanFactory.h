@@ -9,11 +9,12 @@
 #include "..\\Caravan.h"
 #include "..\\..\\..\\Utils\\HelperType.h"
 
-namespace factory {
+class CaravanFactory {
 
-    std::unique_ptr<Caravan> createCaravan(CaravanType type, int row, int col);
+public:
+    static std::unique_ptr<Caravan> createCaravan(CaravanType type, int row, int col);
 
-}
+};
 
 
 

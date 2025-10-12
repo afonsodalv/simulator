@@ -3,15 +3,15 @@
 //
 
 #include "Render.h"
-#include "..\\..\\Data\\Simulation\\Simulation.h"
-#include "..\\Buffer\\Buffer.h"
 #include<vector>
-#include<utility>
 #include<iostream>
 
 using namespace std;
 
-void Render::render(vector<SimulationMap> map, string info ,Buffer& buf) const  {
+
+Render::Render(int row, int col): buf(row, col) {}
+
+void Render::render(vector<SimulationMap> map, string info)  {
 
     for(const auto& square :  map) {
         buf.move_cursor(square.row, square.col);
@@ -27,4 +27,8 @@ void Render::render(vector<SimulationMap> map, string info ,Buffer& buf) const  
 
     buf.reset();
 
+}
+
+void Render::render(const std::string& message) const {
+    buf.print_string(message);
 }

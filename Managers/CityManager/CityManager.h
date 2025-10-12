@@ -24,10 +24,16 @@ public:
     CityManager(int sell_price, int buy_price, int caravan_price);
 
     bool create_city(char id, int i, int j);
-    bool check_caravan_in_city(char id, CaravanType type);
+
+    bool buy_caravan_in_city(char id, CaravanType type);
 
     int get_caravan_price() const;
-    std::vector<SimulationMap> get_cities_info() const;
+    int get_sell_price() const;
+    int get_buy_price() const;
+
+    std::pair<int, int> get_city_coordinates(char id) const;
+    std::string get_city_info(char id) const;
+    std::vector<SimulationMap> get_cities_position() const;
 };
 
 

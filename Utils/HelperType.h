@@ -7,9 +7,9 @@
 
 #include <optional>
 
-enum class Type { City, Caravan, Bandit, Item, Storm, Mountain, Desert};
+enum class Type {City, Caravan, Item, Storm, Mountain, Desert};
 
-enum class CaravanType  {Builder, Commercial, Military};
+enum class CaravanType  {Builder, Commercial, Military, Bandit};
 
 struct SimulationMap {
     Type type;

@@ -109,6 +109,30 @@ build CMakeFiles/simulator.dir/Data/Caravan/CaravanFactory/CaravanFactory.cpp.ob
   OBJECT_DIR = CMakeFiles\simulator.dir
   OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Caravan\CaravanFactory
 
+build CMakeFiles/simulator.dir/Data/Caravan/CommercialCaravan/CommercialCaravan.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Caravan/CommercialCaravan/CommercialCaravan.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Caravan\CommercialCaravan\CommercialCaravan.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Caravan\CommercialCaravan
+
+build CMakeFiles/simulator.dir/Data/Caravan/MilitaryCaravan/MilitaryCaravan.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Caravan/MilitaryCaravan/MilitaryCaravan.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Caravan\MilitaryCaravan\MilitaryCaravan.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Caravan\MilitaryCaravan
+
+build CMakeFiles/simulator.dir/Data/Caravan/BuilderCaravan/BuilderCaravan.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Caravan/BuilderCaravan/BuilderCaravan.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Caravan\BuilderCaravan\BuilderCaravan.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Caravan\BuilderCaravan
+
+build CMakeFiles/simulator.dir/Data/Caravan/BanditCaravan/BanditCaravan.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Caravan/BanditCaravan/BanditCaravan.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Caravan\BanditCaravan\BanditCaravan.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Caravan\BanditCaravan
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target simulator
@@ -117,7 +141,7 @@ build CMakeFiles/simulator.dir/Data/Caravan/CaravanFactory/CaravanFactory.cpp.ob
 #############################################
 # Link the executable simulator.exe
 
-build simulator.exe: CXX_EXECUTABLE_LINKER__simulator_Debug CMakeFiles/simulator.dir/main.cpp.obj CMakeFiles/simulator.dir/UI/Buffer/Buffer.cpp.obj CMakeFiles/simulator.dir/Data/Simulation/Simulation.cpp.obj CMakeFiles/simulator.dir/SimulationManager/SimulationManager.cpp.obj CMakeFiles/simulator.dir/UI/Render/Render.cpp.obj CMakeFiles/simulator.dir/Data/City/City.cpp.obj CMakeFiles/simulator.dir/Managers/CityManager/CityManager.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/Caravan.cpp.obj CMakeFiles/simulator.dir/Managers/CaravanManager/CaravanManager.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/CaravanFactory/CaravanFactory.cpp.obj
+build simulator.exe: CXX_EXECUTABLE_LINKER__simulator_Debug CMakeFiles/simulator.dir/main.cpp.obj CMakeFiles/simulator.dir/UI/Buffer/Buffer.cpp.obj CMakeFiles/simulator.dir/Data/Simulation/Simulation.cpp.obj CMakeFiles/simulator.dir/SimulationManager/SimulationManager.cpp.obj CMakeFiles/simulator.dir/UI/Render/Render.cpp.obj CMakeFiles/simulator.dir/Data/City/City.cpp.obj CMakeFiles/simulator.dir/Managers/CityManager/CityManager.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/Caravan.cpp.obj CMakeFiles/simulator.dir/Managers/CaravanManager/CaravanManager.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/CaravanFactory/CaravanFactory.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/CommercialCaravan/CommercialCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/MilitaryCaravan/MilitaryCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/BuilderCaravan/BuilderCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/BanditCaravan/BanditCaravan.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\simulator.dir

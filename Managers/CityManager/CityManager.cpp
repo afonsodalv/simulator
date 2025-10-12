@@ -32,7 +32,21 @@ int CityManager::get_caravan_price() const {
     return caravan_price;
 }
 
-std::vector<SimulationMap> CityManager::get_cities_info() const {
+int CityManager::get_sell_price() const {
+    return sell_price;
+}
+int CityManager::get_buy_price() const {
+    return buy_price;
+}
+
+std::string CityManager::get_city_info(char id) const {
+    for(const auto& city : cities) {
+        if(city->get_id() == id)
+            return city->get_info();
+    }
+    return "City doesn't exit";
+}
+std::vector<SimulationMap> CityManager::get_cities_position() const {
     vector<SimulationMap> cities_info;
 
     for(const auto& city : cities) {
@@ -41,11 +55,20 @@ std::vector<SimulationMap> CityManager::get_cities_info() const {
     return cities_info;
 }
 
-bool CityManager::check_caravan_in_city(char id, CaravanType type) {
+std::pair<int, int> CityManager::get_city_coordinates(char id) const {
+    for(auto it = cities.begin(); it != cities.end();++it) {
+        if((*it)->get_id() == id) {
+            return {(*it)->get_row(), (*it)->get_col()};
+        }
+    }
+    return {-1, -1};
+}
+
+bool CityManager::buy_caravan_in_city(char id, CaravanType type) {
 
     for(auto it = cities.begin(); it != cities.end();++it) {
         if((*it)->get_id() == id) {
-            return (*it)->is_caravan_available(type);
+            return (*it)->buy_caravan(type);
         }
     }
 

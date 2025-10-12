@@ -6,25 +6,33 @@
 #define SIMULATIONMANAGER_H
 
 #include "..\\Data\\Simulation\\Simulation.h"
-#include "..\\UI\\Buffer\\Buffer.h"
 #include "..\\UI\\Render\\Render.h"
-
-#include <memory>
+#include "..\\Utils\\Status.h"
 #include <string>
+
 
 class SimulationManager {
 
     Simulation* simulation;
-    Buffer* buffer;
-    Render render;
+    Render* render;
+    bool simulation_running;
+
+    static std::vector<std::string> handle_user_input();
+    Status handleConfigCommand(const std::string &file);
+    void handle_simulation_commands(const std::vector<std::string> &command);
+    static bool string_to_positive_int(const std::string& s, int& out);
 
 public:
 
     SimulationManager();
     ~SimulationManager();
-    void handleConfigCommand(const std::string &file);
 
-    void doRender();
+
+
+    void start();
+
+    void doDebug();
+    void doRender() const;
 };
 
 

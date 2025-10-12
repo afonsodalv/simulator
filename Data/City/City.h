@@ -7,6 +7,7 @@
 
 
 #include <map>
+#include <string>
 
 #include "..\\..\\Utils\\HelperType.h"
 
@@ -24,8 +25,9 @@ public:
   char get_id() const;
   int get_row() const;
   int get_col() const;
+  std::string get_info() const;
 
-  bool is_caravan_available(CaravanType type);
+  bool buy_caravan(CaravanType type);
 };
 
 

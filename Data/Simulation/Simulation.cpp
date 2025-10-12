@@ -6,6 +6,7 @@
 
 #include <string>
 #include <sstream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -26,13 +27,10 @@ Simulation::Simulation(int row,
       coins(coins),
       item_interval(item_interval),
       item_duration(item_duration),
-      max_itens(max_itens),
-      sell_price(sell_price),
-      buy_price(buy_price),
-      caravan_price(caravan_price),
-      bandits_interval(bandits_interval),
-      bandits_duration(bandits_duration) {
-    city_manager = CityManager(sell_price, buy_price, caravan_price);
+      max_itens(max_itens),city_manager(sell_price, buy_price, caravan_price),
+      caravan_manager(bandits_interval, bandits_duration),
+      turn(0)
+{
 
     for (int i = 0; i < row; ++i) {
         for (int j = 0; j < col; ++j) {
@@ -48,17 +46,16 @@ Simulation::Simulation(int row,
                     case '+':
                         mountain.emplace_back(i, j);
                     break;
+                    case '!':
+                        caravan_manager.add_caravan(CaravanType::Bandit, i, j);
+                        break;
                     default:
-                        // maybe handle invalid characters here
-                            break;
+                        desert.emplace_back(i, j);
+                        break;
                 }
             }
         }
     }
-}
-
-bool Simulation::handle_command(){
-    return true;
 }
 
 std::vector<SimulationMap> Simulation::get_map_state() const {
@@ -71,42 +68,114 @@ std::vector<SimulationMap> Simulation::get_map_state() const {
         map.emplace_back(Type::Desert, i, j);
     }
 
-    for(const auto& cities_info : city_manager.get_cities_info())
-        map.emplace_back(cities_info);
+    for(const auto& cities_pos : city_manager.get_cities_position())
+        map.emplace_back(cities_pos);
+
+    for(const auto& caravans_pos : caravan_manager.get_caravans_position())
+        map.emplace_back(caravans_pos);
 
     return map;
 }
 
+CaravanType Simulation::char_to_caravan_type(char c) {
 
+    switch (c) {
+        case 'C': return CaravanType::Commercial;
+        case 'M': return CaravanType::Military;
+        case 'S': return CaravanType::Builder;
+        case '!' : return CaravanType::Bandit;
+        default:  throw std::invalid_argument("Unknown caravan type (use C, M or S)");
+    }
+}
 
-bool Simulation::buy_caravan(char city_id, CaravanType type) {
-
-    if(coins < city_manager.get_caravan_price())
-        return false;
-
-    if(!city_manager.check_caravan_in_city(city_id, type))
-        return false;
-
+char Simulation::string_to_char(const std::string& str) {
+    if (str.size() != 1)
+        throw std::invalid_argument("Expected a single-character string");
+    return str[0];
 }
 
 string Simulation::get_simulation_info() const {
     std::ostringstream ss;
 
     ss << "=== Simulation Info ===\n";
-    ss << "Map size: " << row << " x " << col << '\n';
+    ss << "Turn: " << turn << '\n';
     ss << "Coins: " << coins << '\n';
     ss << "Item interval: " << item_interval << '\n';
     ss << "Item duration: " << item_duration << '\n';
     ss << "Max items: " << max_itens << '\n';
-    ss << "Sell price: " << sell_price << '\n';
-    ss << "Buy price: " << buy_price << '\n';
-    ss << "Caravan price: " << caravan_price << '\n';
-    ss << "Bandits interval: " << bandits_interval << '\n';
-    ss << "Bandits duration: " << bandits_duration << '\n';
+    ss << "Sell price: " << city_manager.get_sell_price() << '\n';
+    ss << "Buy price: " << city_manager.get_buy_price() << '\n';
+    ss << "Caravan price: " << city_manager.get_caravan_price() << '\n';
+    ss << "Bandits interval: " << caravan_manager.get_bandits_interval() << '\n';
+    ss << "Bandits duration: " << caravan_manager.get_bandits_duration() << '\n';
 
     for(const string& str : messages)
         ss<<str<<endl;
     ss << "========================\n";
 
     return ss.str();
+}
+
+Status Simulation::buy_caravan(const std::string& city, const std::string& caravan) {
+
+
+    try {
+        char city_id = string_to_char(city);
+        char caravan_type = string_to_char(caravan);
+
+        CaravanType type = char_to_caravan_type(caravan_type);
+
+        pair<int, int> coordinates = city_manager.get_city_coordinates(city_id);
+
+        if(coordinates.first < 0)
+            return {false, "City doesn't exist."};
+        if(coins < city_manager.get_caravan_price())
+            return {false,  "You don't have enough coins."};
+
+        if(!city_manager.buy_caravan_in_city(city_id, type))
+            return {false,  "No caravans of that type available in the city."};
+
+        caravan_manager.add_caravan(type, coordinates.first, coordinates.second);
+
+        return  {true, "Caravan bought successfully."};
+    }
+    catch(const invalid_argument& e) {
+        return {false, e.what()};
+    }
+}
+
+void Simulation::next_turn() {
+    ++turn;
+}
+
+std::string Simulation::get_goods_prices() const {
+    std::string aux = "Buy goods price: " + std::to_string(city_manager.get_buy_price()) + '\n';
+    aux += "Sell goods price: " + std::to_string(city_manager.get_sell_price()) + '\n';
+    return aux;
+}
+
+std::string Simulation::get_city_info(const std::string& city) {
+
+    try {
+        char city_id = string_to_char(city);
+
+        return city_manager.get_city_info(city_id);
+    }
+    catch(const invalid_argument& e) {
+        return e.what();
+    }
+}
+
+std::string Simulation::get_caravan_info(const std::string& caravan) {
+
+    try {
+        char caravan_id = string_to_char(caravan);
+
+        if(caravan_id == '!')
+            return "Bandits won't tell you whats inside!";
+        return caravan_manager.get_caravan_info(caravan_id);
+    }
+    catch(const invalid_argument& e) {
+        return e.what();
+    }
 }

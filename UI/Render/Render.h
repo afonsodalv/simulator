@@ -11,11 +11,18 @@ class Buffer;
 
 
 #include "..\\..\\Utils\\HelperView.h"
+#include "..\\Buffer\\Buffer.h"
 
 class Render {
 
+    Buffer buf;
+
 public:
-    void render(std::vector<SimulationMap> map, std::string info,Buffer& buf) const;
+
+    Render(int row, int col);
+
+    void render(std::vector<SimulationMap> map, std::string info);
+    void render(const std::string& message) const;
 };
 
 

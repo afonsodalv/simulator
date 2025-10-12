@@ -22,4 +22,8 @@ add_executable(simulator main.cpp
         Managers/CaravanManager/CaravanManager.h
         Managers/CaravanManager/CaravanManager.cpp
         Data/Caravan/CaravanFactory/CaravanFactory.h
-        Data/Caravan/CaravanFactory/CaravanFactory.cpp)
+        Data/Caravan/CaravanFactory/CaravanFactory.cpp
+        Data/Caravan/CommercialCaravan/CommercialCaravan.cpp
+        Data/Caravan/MilitaryCaravan/MilitaryCaravan.cpp
+        Data/Caravan/BuilderCaravan/BuilderCaravan.cpp
+        Data/Caravan/BanditCaravan/BanditCaravan.cpp)
