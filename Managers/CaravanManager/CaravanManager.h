@@ -11,7 +11,7 @@
 
 #include "..\\..\\Data\\Caravan\\Caravan.h"
 #include "..\\..\\Utils\\HelperType.h"
-
+#include "..\\..\\Utils\\Status.h"
 class CaravanManager {
 
     std::vector<std::unique_ptr<Caravan>> caravans;
@@ -28,6 +28,9 @@ public:
 
     std::string get_caravan_info(char id) const;
     std::vector<SimulationMap> get_caravans_position() const;
+
+    int buy_cargo(char id, int qtd);
+    int sell_cargo(char id);
 };
 
 

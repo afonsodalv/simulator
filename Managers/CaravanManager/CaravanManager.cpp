@@ -15,11 +15,11 @@ int CaravanManager::get_bandits_interval() const {
 int CaravanManager::get_bandits_duration() const {
     return bandits_duration;
 }
+
 void CaravanManager::add_caravan(CaravanType type, int row, int col) {
 
     caravans.push_back(CaravanFactory::createCaravan(type, row, col));
 }
-
 
 std::vector<SimulationMap> CaravanManager::get_caravans_position() const {
     std::vector<SimulationMap> caravans_info;
@@ -36,4 +36,27 @@ std::string CaravanManager::get_caravan_info(char id) const {
             return caravan->get_info();
     }
     return "Caravan doesn't exit";
+}
+
+int CaravanManager::buy_cargo(char id, int qtd) {
+
+    for(const auto& caravan : caravans) {
+        if(caravan->get_id() == id) {
+            return caravan->add_cargo( qtd);
+        }
+    }
+
+    return -1;
+}
+
+int CaravanManager::sell_cargo(char id) {
+
+    for(const auto& caravan : caravans) {
+        if(caravan->get_id() == id) {
+            return caravan->sell_all_cargo();
+        }
+
+    }
+
+    return -1;
 }

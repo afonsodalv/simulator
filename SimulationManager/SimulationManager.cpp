@@ -169,6 +169,7 @@ bool SimulationManager::string_to_positive_int(const std::string& s, int& out) {
 void SimulationManager::handle_simulation_commands(const std::vector<std::string> &command) {
 
     const string& cmd = command[0];
+    Status status;
 
     if (cmd == "exec") {
         if (command.size() == 2) {
@@ -196,7 +197,7 @@ void SimulationManager::handle_simulation_commands(const std::vector<std::string
     }
     else if (cmd == "comprac") {
         if (command.size() == 3) {
-            Status status = simulation->buy_caravan(command[1], command[2]);
+            status = simulation->buy_caravan(command[1], command[2]);
             render->render(status.message);
         } else {
             render->render("Usage: comprac <cityId> <caravanType>");
@@ -225,14 +226,22 @@ void SimulationManager::handle_simulation_commands(const std::vector<std::string
     }
     else if (cmd == "compra") {
         if (command.size() == 3) {
-            // TODO: implement compra
+            int num = 1;
+            if (!string_to_positive_int(command[2], num)) {
+                render->render("Usage: compra <caravanId> <resource> (resource must be a positive integer)");
+                return;
+            }
+            status = simulation->buy_goods(command[1], num);
+            render->render(status.message);
         } else {
             render->render("Usage: compra <caravanId> <resource>");
         }
     }
     else if (cmd == "vende") {
         if (command.size() == 2) {
-            // TODO: implement vende
+
+            status = simulation->sell_all_goods(command[1]);
+            render->render(status.message);
         } else {
             render->render("Usage: vende <caravanId>");
         }

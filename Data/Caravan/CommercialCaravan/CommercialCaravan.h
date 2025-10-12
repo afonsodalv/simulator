@@ -17,6 +17,7 @@ class CommercialCaravan : public Caravan {
 public:
     CommercialCaravan(char id, int row, int col);
     void move() override;
+    std::string get_info() const override;
 };
 
 

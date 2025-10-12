@@ -58,6 +58,8 @@ public:
 
 
     Status buy_caravan(const std::string& city, const std::string& caravan);
+    Status buy_goods(const std::string& caravan, int qtd);
+    Status sell_all_goods(const std::string& caravan);
 
 };
 

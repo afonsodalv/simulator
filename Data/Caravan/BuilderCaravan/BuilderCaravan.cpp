@@ -4,6 +4,8 @@
 
 #include "BuilderCaravan.h"
 
+#include <sstream>
+
 int BuilderCaravan::initial_crew = 15;
 int BuilderCaravan::max_crew = 20;
 int BuilderCaravan::max_cargo = 5;
@@ -11,8 +13,19 @@ int BuilderCaravan::max_water = 200;
 
 
 BuilderCaravan::BuilderCaravan(char id, int row, int col)
-: Caravan(id, row, col, initial_crew, false, max_water, 0, true) {}
+: Caravan(id, row, col, initial_crew, false, max_water, max_cargo ,max_water, max_cargo, true) {}
 
 void BuilderCaravan::move() {
 
+}
+
+std::string BuilderCaravan::get_info() const {
+    std::ostringstream oss;
+    oss << "Caravan " << get_id() << '\n'
+        <<"Type: Builder Caravan\n"
+        << "Crew members: " << get_crew_members() << '\n'
+        << "Autonomous behavior: " << (get_autonomous_behavior() ? "Yes" : "No") << '\n'
+        << "Water: " << get_water() << '\n'
+        << "Cargo: " << get_cargo();
+    return oss.str();
 }

@@ -16,6 +16,7 @@ class MilitaryCaravan : public Caravan {
 public:
     MilitaryCaravan(char id, int row, int col);
 
+    std::string get_info() const override;
     void move() override;
 };
 

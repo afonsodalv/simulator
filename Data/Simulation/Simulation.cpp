@@ -136,7 +136,7 @@ Status Simulation::buy_caravan(const std::string& city, const std::string& carav
             return {false,  "No caravans of that type available in the city."};
 
         caravan_manager.add_caravan(type, coordinates.first, coordinates.second);
-
+        coins -= city_manager.get_caravan_price();
         return  {true, "Caravan bought successfully."};
     }
     catch(const invalid_argument& e) {
@@ -171,11 +171,52 @@ std::string Simulation::get_caravan_info(const std::string& caravan) {
     try {
         char caravan_id = string_to_char(caravan);
 
-        if(caravan_id == '!')
-            return "Bandits won't tell you whats inside!";
         return caravan_manager.get_caravan_info(caravan_id);
     }
     catch(const invalid_argument& e) {
         return e.what();
     }
+}
+
+Status Simulation::buy_goods(const std::string& caravan, int qtd) {
+
+    try {
+
+        char caravan_id = string_to_char(caravan);
+
+        if(caravan_id == '!')
+            return {false, "Bandits didn't trust you... they  didn't accept your goods."};
+
+        int expense = city_manager.get_buy_price() * caravan_manager.buy_cargo(caravan_id, qtd);;
+        if(expense < 0) {
+            return {false, "Caravan doesn't exit."};
+        }
+        if(coins < expense)
+            return {false, "You don't have enough coins."};
+
+        coins -= expense;
+        return {true, "Goods bought successfully."};
+    }
+    catch (const invalid_argument& e) {
+        return {false, e.what()};
+    }
+
+}
+Status Simulation::sell_all_goods(const std::string& caravan) {
+
+
+    try {
+        char id = string_to_char(caravan);
+        int qtd = caravan_manager.sell_cargo(id);
+
+        if(qtd == -1)
+            return {false,"Caravan doesn't exist"};
+
+        coins += (qtd * city_manager.get_sell_price());
+        return {true, "Cargo sold successfully"};
+    }
+    catch(const invalid_argument& e) {
+        return {false, e.what()};
+    }
+
 }

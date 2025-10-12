@@ -18,6 +18,7 @@ class BuilderCaravan : public Caravan {
 public:
     BuilderCaravan(char id, int row, int col);
     void move() override;
+    std::string get_info() const override;
 };
 
 

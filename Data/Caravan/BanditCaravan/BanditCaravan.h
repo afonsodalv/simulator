@@ -14,6 +14,7 @@ class BanditCaravan : public Caravan {
 public:
     BanditCaravan(char id, int row, int col);
     void move() override;
+    std::string get_info() const override;
 };
 
 
