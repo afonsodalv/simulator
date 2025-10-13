@@ -12,6 +12,7 @@ CaravanManager::CaravanManager(int bandits_interval,int bandits_duration) :bandi
 int CaravanManager::get_bandits_interval() const {
     return bandits_interval;
 }
+
 int CaravanManager::get_bandits_duration() const {
     return bandits_duration;
 }
@@ -19,6 +20,15 @@ int CaravanManager::get_bandits_duration() const {
 void CaravanManager::add_caravan(CaravanType type, int row, int col) {
 
     caravans.push_back(CaravanFactory::createCaravan(type, row, col));
+}
+
+void CaravanManager::remove_caravan(char id) {
+    for (auto it = caravans.begin(); it != caravans.end(); ++it) {
+        if ((*it)->get_id() == id) {
+            caravans.erase(it);
+            break;
+        }
+    }
 }
 
 std::vector<SimulationMap> CaravanManager::get_caravans_position() const {
@@ -59,4 +69,40 @@ int CaravanManager::sell_cargo(char id) {
     }
 
     return -1;
+}
+
+std::pair<int, int> CaravanManager::get_caravan_position(char id) const {
+    for(const auto& caravan : caravans) {
+        if(caravan->get_id() == id) {
+            return {caravan->get_row(), caravan->get_col()};
+        }
+    }
+
+    return {-1, -1};
+}
+
+void CaravanManager::add_velocity(char id, int p) {
+    for(const auto& caravan : caravans) {
+        if(caravan->get_id() == id) {
+            caravan->add_velocity(p);
+        }
+    }
+}
+void CaravanManager::add_crew_members(char id, int qtd) {
+    for(const auto& caravan : caravans) {
+        if(caravan->get_id() == id) {
+            caravan->add_crew_members(qtd);
+        }
+    }
+}
+
+void CaravanManager::lose_crew_percentage(char id, double p) {
+
+    for(const auto& caravan : caravans) {
+        if(caravan->get_id() == id) {
+            int qtd = static_cast<int>(caravan->get_crew_members() * p);
+
+            caravan->add_crew_members(-qtd);
+        }
+    }
 }

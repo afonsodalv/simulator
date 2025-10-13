@@ -12,16 +12,14 @@
 #include "..\\..\\Managers\\CityManager\\CityManager.h"
 #include "..\\..\\Utils\\HelperType.h"
 #include "..\\..\\Utils\\Status.h"
+#include "..\\..\\Utils\\Wallet\\Wallet.h"
 #include "..\\..\\Managers\\CaravanManager\\CaravanManager.h"
+#include "..\\..\\Managers\\ItemManager\\ItemManager.h"
 
 class Simulation {
 
     int row;
     int col;
-    int coins;
-    int item_interval;
-    int item_duration;
-    int max_itens;
     int turn;
 
     std::vector<std::pair<int, int>> mountain;
@@ -29,10 +27,12 @@ class Simulation {
     std::vector<std::string> messages;
     CaravanManager caravan_manager;
     CityManager city_manager;
-    // ItemManager itens;
+    Wallet wallet;
+    ItemManager item_manager;
 
     static CaravanType char_to_caravan_type(char c);
     static char string_to_char(const std::string& str);
+    static std::pair<int, int> direction_to_pair_int(char direction, std::pair<int, int>);
 
 public:
     Simulation(int row,
@@ -60,6 +60,7 @@ public:
     Status buy_caravan(const std::string& city, const std::string& caravan);
     Status buy_goods(const std::string& caravan, int qtd);
     Status sell_all_goods(const std::string& caravan);
+    Status move_caravan(const std::string& caravan, const std::string& pos);
 
 };
 

@@ -13,11 +13,13 @@ class BuilderCaravan : public Caravan {
     static int max_cargo;
     static int max_water;
     static int initial_crew;
+    static int velocity;
 
 
 public:
     BuilderCaravan(char id, int row, int col);
     void move() override;
+    void reset_velocity() override;
     std::string get_info() const override;
 };
 

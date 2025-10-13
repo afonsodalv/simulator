@@ -24,10 +24,9 @@ Simulation::Simulation(int row,
 
       row(row),
       col(col),
-      coins(coins),
-      item_interval(item_interval),
-      item_duration(item_duration),
-      max_itens(max_itens),city_manager(sell_price, buy_price, caravan_price),
+      wallet(coins),
+      item_manager(item_interval, item_duration, max_itens),
+      city_manager(sell_price, buy_price, caravan_price),
       caravan_manager(bandits_interval, bandits_duration),
       turn(0)
 {
@@ -99,10 +98,10 @@ string Simulation::get_simulation_info() const {
 
     ss << "=== Simulation Info ===\n";
     ss << "Turn: " << turn << '\n';
-    ss << "Coins: " << coins << '\n';
-    ss << "Item interval: " << item_interval << '\n';
-    ss << "Item duration: " << item_duration << '\n';
-    ss << "Max items: " << max_itens << '\n';
+    ss << "Coins: " << wallet.get_coins() << '\n';
+    ss << "Item interval: " << item_manager.get_item_interval() << '\n';
+    ss << "Item duration: " << item_manager.get_item_duration() << '\n';
+    ss << "Max items: " << item_manager.get_max_itens() << '\n';
     ss << "Sell price: " << city_manager.get_sell_price() << '\n';
     ss << "Buy price: " << city_manager.get_buy_price() << '\n';
     ss << "Caravan price: " << city_manager.get_caravan_price() << '\n';
@@ -122,7 +121,7 @@ Status Simulation::buy_caravan(const std::string& city, const std::string& carav
     try {
         char city_id = string_to_char(city);
         char caravan_type = string_to_char(caravan);
-
+        int coins = wallet.get_coins();
         CaravanType type = char_to_caravan_type(caravan_type);
 
         pair<int, int> coordinates = city_manager.get_city_coordinates(city_id);
@@ -136,7 +135,7 @@ Status Simulation::buy_caravan(const std::string& city, const std::string& carav
             return {false,  "No caravans of that type available in the city."};
 
         caravan_manager.add_caravan(type, coordinates.first, coordinates.second);
-        coins -= city_manager.get_caravan_price();
+        wallet.add_coins(-city_manager.get_caravan_price());
         return  {true, "Caravan bought successfully."};
     }
     catch(const invalid_argument& e) {
@@ -187,14 +186,15 @@ Status Simulation::buy_goods(const std::string& caravan, int qtd) {
         if(caravan_id == '!')
             return {false, "Bandits didn't trust you... they  didn't accept your goods."};
 
-        int expense = city_manager.get_buy_price() * caravan_manager.buy_cargo(caravan_id, qtd);;
+        int expense = city_manager.get_buy_price() * caravan_manager.buy_cargo(caravan_id, qtd);
+        int coins = wallet.get_coins();
         if(expense < 0) {
             return {false, "Caravan doesn't exit."};
         }
         if(coins < expense)
             return {false, "You don't have enough coins."};
 
-        coins -= expense;
+        wallet.add_coins(-expense);
         return {true, "Goods bought successfully."};
     }
     catch (const invalid_argument& e) {
@@ -202,6 +202,7 @@ Status Simulation::buy_goods(const std::string& caravan, int qtd) {
     }
 
 }
+
 Status Simulation::sell_all_goods(const std::string& caravan) {
 
 
@@ -212,11 +213,22 @@ Status Simulation::sell_all_goods(const std::string& caravan) {
         if(qtd == -1)
             return {false,"Caravan doesn't exist"};
 
-        coins += (qtd * city_manager.get_sell_price());
+        wallet.add_coins(qtd * city_manager.get_sell_price());
         return {true, "Cargo sold successfully"};
     }
     catch(const invalid_argument& e) {
         return {false, e.what()};
     }
+
+}
+
+Status Simulation::move_caravan(const std::string& caravan, const std::string& pos) {
+
+    // char id = string_to_char(caravan);
+    //
+    // if(id == '!')
+    //     return {false, "Bandits refused to take orders from you!"};
+
+    //auto pos = caravan_manager.get_caravan_position(id);
 
 }

@@ -13,10 +13,12 @@ class MilitaryCaravan : public Caravan {
     static int max_cargo;
     static int max_water;
     static int initial_crew;
+    static int velocity;
 public:
     MilitaryCaravan(char id, int row, int col);
 
     std::string get_info() const override;
+    void reset_velocity() override;
     void move() override;
 };
 

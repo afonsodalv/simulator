@@ -12,6 +12,7 @@
 #include "..\\..\\Data\\Caravan\\Caravan.h"
 #include "..\\..\\Utils\\HelperType.h"
 #include "..\\..\\Utils\\Status.h"
+
 class CaravanManager {
 
     std::vector<std::unique_ptr<Caravan>> caravans;
@@ -23,14 +24,21 @@ public:
 
     int get_bandits_interval() const;
     int get_bandits_duration() const;
-    void add_caravan(CaravanType type, int row, int col);
 
+    void add_caravan(CaravanType type, int row, int col);
+    void remove_caravan(char id);
+
+    void add_velocity(char id, int p);
+    void add_crew_members(char id, int qtd);
+    void lose_crew_percentage(char id, double p);
 
     std::string get_caravan_info(char id) const;
     std::vector<SimulationMap> get_caravans_position() const;
+    std::pair<int, int>get_caravan_position(char id) const;
 
     int buy_cargo(char id, int qtd);
     int sell_cargo(char id);
+
 };
 
 

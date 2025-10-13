@@ -11,13 +11,19 @@ int CommercialCaravan::initial_crew = 20;
 int CommercialCaravan::max_crew = 25;
 int CommercialCaravan::max_cargo = 40;
 int CommercialCaravan::max_water = 200;
+int CommercialCaravan::velocity = 2;
 
 CommercialCaravan::CommercialCaravan(char id, int row, int col)
-: Caravan(id, row, col, initial_crew, false, max_water, max_cargo,max_water, max_cargo, true) {}
+: Caravan(id, row, col, velocity, initial_crew, false, max_water, max_cargo,max_water, max_cargo, max_crew,true) {}
 
 void CommercialCaravan::move() {
 
 }
+
+void CommercialCaravan::reset_velocity(){
+    set_velocity(velocity);
+}
+
 
 std::string CommercialCaravan::get_info() const {
     std::ostringstream oss;

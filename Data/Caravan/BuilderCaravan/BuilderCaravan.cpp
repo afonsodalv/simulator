@@ -10,13 +10,17 @@ int BuilderCaravan::initial_crew = 15;
 int BuilderCaravan::max_crew = 20;
 int BuilderCaravan::max_cargo = 5;
 int BuilderCaravan::max_water = 200;
-
+int BuilderCaravan::velocity = 1;
 
 BuilderCaravan::BuilderCaravan(char id, int row, int col)
-: Caravan(id, row, col, initial_crew, false, max_water, max_cargo ,max_water, max_cargo, true) {}
+: Caravan(id, row, col, velocity,initial_crew, false, max_water, max_cargo ,max_water, max_cargo, max_crew,true) {}
 
 void BuilderCaravan::move() {
 
+}
+
+void BuilderCaravan::reset_velocity(){
+    set_velocity(velocity);
 }
 
 std::string BuilderCaravan::get_info() const {

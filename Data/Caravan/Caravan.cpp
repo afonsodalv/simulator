@@ -4,9 +4,9 @@
 
 #include "Caravan.h"
 
-Caravan::Caravan(char id, int row, int col, int crew_members,bool autonomous_behavior, int max_water, int max_cargo, int water, int cargo, bool is_in_city) :
-id(id), row(row), col(col), crew_members(crew_members), autonomous_behavior(autonomous_behavior),
-max_water(max_water), max_cargo(max_cargo), current_water(water), current_cargo(cargo), is_in_city(is_in_city){}
+Caravan::Caravan(char id, int row, int col, int velocity, int crew_members,bool autonomous_behavior, int max_water, int max_cargo, int water, int cargo,int max_crew , bool is_in_city) :
+id(id), row(row), col(col),velocity(velocity) ,crew_members(crew_members), autonomous_behavior(autonomous_behavior),
+max_water(max_water), max_cargo(max_cargo), current_water(water), current_cargo(cargo), max_crew(max_crew), is_in_city(is_in_city){}
 
 
 int Caravan::get_row() const {
@@ -46,6 +46,24 @@ int Caravan::add_cargo(int qtd) {
     return added;
 }
 
+void Caravan::add_crew_members(int qtd) {
+    if (qtd > 0) {
+        int space_left = max_crew - crew_members;
+        int added = std::min(qtd, space_left);
+        crew_members += added;
+    } else if (qtd < 0) {
+        int removed = std::min(-qtd, crew_members);
+        crew_members -= removed;
+    }
+}
+
+void Caravan::add_velocity(int v) {
+    velocity += v;
+}
+void Caravan::set_velocity(int v) {
+    if(v>0)
+        velocity = v;
+}
 int Caravan::sell_all_cargo() {
     int aux = current_cargo;
     current_cargo = 0;

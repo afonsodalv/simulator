@@ -12,18 +12,21 @@ class Caravan {
     char id;
     int row;
     int col;
+    int velocity;
     int crew_members;
     bool autonomous_behavior;
     int current_water;
     int current_cargo;
     int max_cargo;
     int max_water;
+    int max_crew;
     bool is_in_city;
 
 public:
+    virtual ~Caravan() = default;
 
 
-    Caravan(char id, int row, int col, int crew_members,bool autonomous_behavior,int max_water, int max_cargo ,int water, int cargo, bool is_in_city);
+    Caravan(char id, int row, int col, int velocity,int crew_members,bool autonomous_behavior,int max_water, int max_cargo ,int water, int cargo,int max_crew ,bool is_in_city);
 
     int get_row() const;
     int get_col() const;
@@ -34,7 +37,12 @@ public:
     int get_water() const;
 
     virtual int add_cargo(int qtd);
+    void add_crew_members(int qtd);
+    void add_velocity(int v);
+    void set_velocity(int v);
+    virtual void reset_velocity() = 0;
     int sell_all_cargo();
+
 
     virtual std::string get_info() const = 0;
     virtual void move() = 0;

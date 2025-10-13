@@ -248,7 +248,8 @@ void SimulationManager::handle_simulation_commands(const std::vector<std::string
     }
     else if (cmd == "move") {
         if (command.size() == 3) {
-            // TODO: implement move
+            //status = simulation->move_caravan(command[1], command[2]);
+            //render->render(status.message);
         } else {
             render->render("Usage: move <caravanId> <destination>");
         }

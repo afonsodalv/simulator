@@ -11,9 +11,12 @@
 class BanditCaravan : public Caravan {
 
     static int initial_crew;
+    static int max_crew;
+    static int velocity;
 public:
     BanditCaravan(char id, int row, int col);
     void move() override;
+    void reset_velocity() override;
     std::string get_info() const override;
 };
 

@@ -27,8 +27,6 @@ public:
     SimulationManager();
     ~SimulationManager();
 
-
-
     void start();
 
     void doDebug();

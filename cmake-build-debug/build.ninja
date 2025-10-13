@@ -133,6 +133,60 @@ build CMakeFiles/simulator.dir/Data/Caravan/BanditCaravan/BanditCaravan.cpp.obj:
   OBJECT_DIR = CMakeFiles\simulator.dir
   OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Caravan\BanditCaravan
 
+build CMakeFiles/simulator.dir/Utils/GameContext/GameContext.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Utils/GameContext/GameContext.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Utils\GameContext\GameContext.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Utils\GameContext
+
+build CMakeFiles/simulator.dir/Managers/ItemManager/ItemManager.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Managers/ItemManager/ItemManager.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Managers\ItemManager\ItemManager.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Managers\ItemManager
+
+build CMakeFiles/simulator.dir/Data/Item/Item.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Item/Item.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Item\Item.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Item
+
+build CMakeFiles/simulator.dir/Data/Item/PandoraBox/PandoraBox.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Item/PandoraBox/PandoraBox.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Item\PandoraBox\PandoraBox.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Item\PandoraBox
+
+build CMakeFiles/simulator.dir/Data/Item/Mine/Mine.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Item/Mine/Mine.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Item\Mine\Mine.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Item\Mine
+
+build CMakeFiles/simulator.dir/Data/Item/GoldenWhistle/GoldenWhistle.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Item/GoldenWhistle/GoldenWhistle.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Item\GoldenWhistle\GoldenWhistle.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Item\GoldenWhistle
+
+build CMakeFiles/simulator.dir/Data/Item/Cage/Cage.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Item/Cage/Cage.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Item\Cage\Cage.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Item\Cage
+
+build CMakeFiles/simulator.dir/Data/Item/TreasureChest/TreasureChest.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Item/TreasureChest/TreasureChest.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Item\TreasureChest\TreasureChest.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Item\TreasureChest
+
+build CMakeFiles/simulator.dir/Data/Item/ItemFactory/ItemFactory.cpp.obj: CXX_COMPILER__simulator_unscanned_Debug C$:/Users/afons/Desktop/simulator/Data/Item/ItemFactory/ItemFactory.cpp || cmake_object_order_depends_target_simulator
+  DEP_FILE = CMakeFiles\simulator.dir\Data\Item\ItemFactory\ItemFactory.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\simulator.dir\Data\Item\ItemFactory
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target simulator
@@ -141,7 +195,7 @@ build CMakeFiles/simulator.dir/Data/Caravan/BanditCaravan/BanditCaravan.cpp.obj:
 #############################################
 # Link the executable simulator.exe
 
-build simulator.exe: CXX_EXECUTABLE_LINKER__simulator_Debug CMakeFiles/simulator.dir/main.cpp.obj CMakeFiles/simulator.dir/UI/Buffer/Buffer.cpp.obj CMakeFiles/simulator.dir/Data/Simulation/Simulation.cpp.obj CMakeFiles/simulator.dir/SimulationManager/SimulationManager.cpp.obj CMakeFiles/simulator.dir/UI/Render/Render.cpp.obj CMakeFiles/simulator.dir/Data/City/City.cpp.obj CMakeFiles/simulator.dir/Managers/CityManager/CityManager.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/Caravan.cpp.obj CMakeFiles/simulator.dir/Managers/CaravanManager/CaravanManager.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/CaravanFactory/CaravanFactory.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/CommercialCaravan/CommercialCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/MilitaryCaravan/MilitaryCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/BuilderCaravan/BuilderCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/BanditCaravan/BanditCaravan.cpp.obj
+build simulator.exe: CXX_EXECUTABLE_LINKER__simulator_Debug CMakeFiles/simulator.dir/main.cpp.obj CMakeFiles/simulator.dir/UI/Buffer/Buffer.cpp.obj CMakeFiles/simulator.dir/Data/Simulation/Simulation.cpp.obj CMakeFiles/simulator.dir/SimulationManager/SimulationManager.cpp.obj CMakeFiles/simulator.dir/UI/Render/Render.cpp.obj CMakeFiles/simulator.dir/Data/City/City.cpp.obj CMakeFiles/simulator.dir/Managers/CityManager/CityManager.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/Caravan.cpp.obj CMakeFiles/simulator.dir/Managers/CaravanManager/CaravanManager.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/CaravanFactory/CaravanFactory.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/CommercialCaravan/CommercialCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/MilitaryCaravan/MilitaryCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/BuilderCaravan/BuilderCaravan.cpp.obj CMakeFiles/simulator.dir/Data/Caravan/BanditCaravan/BanditCaravan.cpp.obj CMakeFiles/simulator.dir/Utils/GameContext/GameContext.cpp.obj CMakeFiles/simulator.dir/Managers/ItemManager/ItemManager.cpp.obj CMakeFiles/simulator.dir/Data/Item/Item.cpp.obj CMakeFiles/simulator.dir/Data/Item/PandoraBox/PandoraBox.cpp.obj CMakeFiles/simulator.dir/Data/Item/Mine/Mine.cpp.obj CMakeFiles/simulator.dir/Data/Item/GoldenWhistle/GoldenWhistle.cpp.obj CMakeFiles/simulator.dir/Data/Item/Cage/Cage.cpp.obj CMakeFiles/simulator.dir/Data/Item/TreasureChest/TreasureChest.cpp.obj CMakeFiles/simulator.dir/Data/Item/ItemFactory/ItemFactory.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\simulator.dir
