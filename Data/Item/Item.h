@@ -21,6 +21,8 @@ public:
 
     int get_turns_remaining() const;
     std::pair<int, int> get_position() const;
+    int get_row() const;
+    int get_col() const;
 
     virtual void apply_effect(GameContext& ctx, char id) = 0 ;
 

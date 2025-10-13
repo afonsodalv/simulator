@@ -13,3 +13,10 @@ int Item::get_turns_remaining() const {
 std::pair<int, int> Item::get_position() const {
     return {row, col};
 }
+
+int Item::get_row() const {
+    return row;
+}
+int Item::get_col() const{
+    return col;
+}

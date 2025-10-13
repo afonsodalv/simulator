@@ -21,6 +21,15 @@ int ItemManager::get_max_itens() const {
 }
 
 
-void ItemManager::add_item(int item_duration, int row, int col) {
-    ItemFactory::create_random(item_duration, row, col);
+void ItemManager::add_item(int row, int col) {
+    items.push_back(ItemFactory::create_random(item_duration, row, col));
+}
+
+std::vector<SimulationMap> ItemManager::get_item_position() const {
+    std::vector<SimulationMap> items_info;
+
+    for(const auto& item : items) {
+        items_info.emplace_back(Type::Item, item->get_row(), item->get_col());
+    }
+    return items_info;
 }

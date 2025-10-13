@@ -48,6 +48,9 @@ Simulation::Simulation(int row,
                     case '!':
                         caravan_manager.add_caravan(CaravanType::Bandit, i, j);
                         break;
+                    case '?':
+                        item_manager.add_item(i, j);
+
                     default:
                         desert.emplace_back(i, j);
                         break;
@@ -72,6 +75,9 @@ std::vector<SimulationMap> Simulation::get_map_state() const {
 
     for(const auto& caravans_pos : caravan_manager.get_caravans_position())
         map.emplace_back(caravans_pos);
+
+    for(const auto& item_pos : item_manager.get_item_position())
+        map.emplace_back(item_pos);
 
     return map;
 }

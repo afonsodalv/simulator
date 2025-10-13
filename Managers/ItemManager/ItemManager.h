@@ -5,13 +5,15 @@
 #ifndef ITEMMANAGER_H
 #define ITEMMANAGER_H
 
+#include <memory>
 #include <vector>
 
 #include "..\\..\\Data\\Item\\Item.h"
+#include "..\\..\\Utils\\HelperType.h"
 
 class ItemManager {
 
-    std::vector<Item> items;
+    std::vector<std::unique_ptr<Item>> items;
     int item_interval;
     int item_duration;
     int max_itens;
@@ -22,8 +24,8 @@ public:
     int get_item_interval() const;
     int get_item_duration() const;
     int get_max_itens() const;
-
-    void add_item(int item_duration, int row, int col);
+    std::vector<SimulationMap> get_item_position() const;
+    void add_item(int row, int col);
 };
 
 
