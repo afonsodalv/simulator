@@ -14,6 +14,27 @@ CityManager::CityManager() : CityManager(2, 1, 100) {}
 CityManager::CityManager(int sell_price, int buy_price,int caravan_price) : sell_price(sell_price)
 ,buy_price(buy_price),caravan_price(caravan_price) {}
 
+
+City* CityManager::find(char id) const {
+
+    for (const auto & city : cities) {
+        if (city->get_id() == id) {
+            return city.get();
+        }
+    }
+    return nullptr;
+}
+
+bool CityManager::find(pair<int, int> pos) const {
+
+    for (const auto & city : cities) {
+        if (city->get_row() == pos.first && city->get_col() == pos.second) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool CityManager::create_city(char id, int i, int j) {
 
     if(id < 'a' || id > 'z')
@@ -35,17 +56,17 @@ int CityManager::get_caravan_price() const {
 int CityManager::get_sell_price() const {
     return sell_price;
 }
+
 int CityManager::get_buy_price() const {
     return buy_price;
 }
 
 std::string CityManager::get_city_info(char id) const {
-    for(const auto& city : cities) {
-        if(city->get_id() == id)
-            return city->get_info();
-    }
+
+    if(auto city = find(id)) return city->get_info();
     return "City doesn't exit";
 }
+
 std::vector<SimulationMap> CityManager::get_cities_position() const {
     vector<SimulationMap> cities_info;
 
@@ -56,21 +77,17 @@ std::vector<SimulationMap> CityManager::get_cities_position() const {
 }
 
 std::pair<int, int> CityManager::get_city_coordinates(char id) const {
-    for(auto it = cities.begin(); it != cities.end();++it) {
-        if((*it)->get_id() == id) {
-            return {(*it)->get_row(), (*it)->get_col()};
-        }
-    }
+
+    if(auto city = find(id)) return {city->get_row(), city->get_col()};
     return {-1, -1};
 }
 
 bool CityManager::buy_caravan_in_city(char id, CaravanType type) {
 
-    for(auto it = cities.begin(); it != cities.end();++it) {
-        if((*it)->get_id() == id) {
-            return (*it)->buy_caravan(type);
-        }
-    }
-
+    if(auto city = find(id)) return city->buy_caravan(type);
     return false;
+}
+
+bool CityManager::is_a_city(std::pair<int,int> pos) {
+    return find(pos);
 }

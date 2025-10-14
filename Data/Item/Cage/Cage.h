@@ -10,8 +10,9 @@
 class Cage : public Item{
 
 public:
-    Cage(int turns_remaining, int row, int col);
+    Cage(int id, int turns_remaining, int row, int col);
     void apply_effect(GameContext& ctx, char id) override;
+    std::string get_description() const override;
 };
 
 

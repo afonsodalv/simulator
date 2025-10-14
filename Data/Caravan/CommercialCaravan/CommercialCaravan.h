@@ -14,7 +14,7 @@ class CommercialCaravan : public Caravan {
     static int max_cargo;
     static int max_water;
     static int initial_crew;
-    static int velocity;
+    static int speed;
 public:
     CommercialCaravan(char id, int row, int col);
 

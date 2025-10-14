@@ -10,8 +10,9 @@
 class Mine : public Item {
 
 public:
-    Mine(int turns_remaining, int row, int col);
+    Mine(int id, int turns_remaining, int row, int col);
     void apply_effect(GameContext& ctx, char id) override;
+    std::string get_description() const override;
 };
 
 

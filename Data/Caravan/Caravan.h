@@ -12,7 +12,7 @@ class Caravan {
     char id;
     int row;
     int col;
-    int velocity;
+    int speed;
     int crew_members;
     bool autonomous_behavior;
     int current_water;
@@ -26,25 +26,31 @@ public:
     virtual ~Caravan() = default;
 
 
-    Caravan(char id, int row, int col, int velocity,int crew_members,bool autonomous_behavior,int max_water, int max_cargo ,int water, int cargo,int max_crew ,bool is_in_city);
+    Caravan(char id, int row, int col, int speed,int crew_members,bool autonomous_behavior,int max_water, int max_cargo ,int water, int cargo,int max_crew ,bool is_in_city);
 
     int get_row() const;
     int get_col() const;
+    int get_speed() const;
     char get_id() const;
     int get_crew_members() const;
     bool get_autonomous_behavior() const;
     int get_cargo() const;
     int get_water() const;
+    bool get_is_in_city() const;
+    virtual std::string get_info() const = 0;
 
     virtual int add_cargo(int qtd);
     void add_crew_members(int qtd);
     void add_velocity(int v);
+
     void set_velocity(int v);
+    void set_position(std::pair<int, int> pos);
+    void set_is_in_city(bool b);
     virtual void reset_velocity() = 0;
     int sell_all_cargo();
 
 
-    virtual std::string get_info() const = 0;
+
     virtual void move() = 0;
 
 

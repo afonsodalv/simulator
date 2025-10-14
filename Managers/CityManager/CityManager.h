@@ -17,6 +17,9 @@ class CityManager {
     int buy_price;
     int caravan_price;
 
+    City* find(char id) const;
+    bool find(std::pair<int, int>) const;
+
 public:
 
     CityManager();
@@ -26,10 +29,12 @@ public:
     bool create_city(char id, int i, int j);
 
     bool buy_caravan_in_city(char id, CaravanType type);
+    bool is_a_city(std::pair<int,int> pos);
 
     int get_caravan_price() const;
     int get_sell_price() const;
     int get_buy_price() const;
+
 
     std::pair<int, int> get_city_coordinates(char id) const;
     std::string get_city_info(char id) const;

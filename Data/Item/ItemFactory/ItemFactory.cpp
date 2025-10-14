@@ -21,11 +21,13 @@ int ItemFactory::rng_int(int low, int high) {
 
 std::unique_ptr<Item> ItemFactory::create_random(int turns_remaining, int row, int col) {
 
+    static int id = 0;
+
     switch (rng_int(0, 4)) {
-        case 0: return std::make_unique<PandoraBox>(turns_remaining, row, col);
-        case 1: return std::make_unique<TreasureChest>(turns_remaining, row, col);
-        case 2: return std::make_unique<Cage>(turns_remaining, row, col);
-        case 3: return std::make_unique<Mine>(turns_remaining, row, col);
-        default: return std::make_unique<GoldenWhistle>(turns_remaining, row, col);
+        case 0: return std::make_unique<PandoraBox>(id++, turns_remaining, row, col);
+        case 1: return std::make_unique<TreasureChest>(id++,turns_remaining, row, col);
+        case 2: return std::make_unique<Cage>(id++,turns_remaining, row, col);
+        case 3: return std::make_unique<Mine>(id++,turns_remaining, row, col);
+        default: return std::make_unique<GoldenWhistle>(id++,turns_remaining, row, col);
     }
 }

@@ -10,8 +10,9 @@
 class PandoraBox : public Item {
 
 public:
-    PandoraBox(int turns_remaining, int row, int col);
+    PandoraBox(int id,int turns_remaining, int row, int col);
     void apply_effect(GameContext& ctx, char id) override;
+    std::string get_description() const override;
 };
 
 

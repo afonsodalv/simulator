@@ -4,12 +4,13 @@
 
 #include "Item.h"
 
-Item::Item(int turns_remaining, int row, int col) : turns_remaining(turns_remaining), row(row), col(col){}
+Item::Item(int id,int turns_remaining, int row, int col) : id(id), turns_remaining(turns_remaining), row(row), col(col){}
 
 
 int Item::get_turns_remaining() const {
     return turns_remaining;
 }
+
 std::pair<int, int> Item::get_position() const {
     return {row, col};
 }
@@ -19,4 +20,8 @@ int Item::get_row() const {
 }
 int Item::get_col() const{
     return col;
+}
+
+int Item::get_id() const {
+    return id;
 }

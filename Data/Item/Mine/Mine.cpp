@@ -5,8 +5,12 @@
 #include "Mine.h"
 
 #include "..\\..\\..\\Utils\\GameContext\\GameContext.h"
-Mine::Mine(int turns_remaining, int row, int col): Item(turns_remaining, row, col){}
+Mine::Mine(int id,int turns_remaining, int row, int col): Item(id,turns_remaining, row, col){}
 
 void Mine::apply_effect(GameContext& ctx, char id){
     ctx.destroy(id);
+}
+
+std::string Mine::get_description() const {
+    return "BOOM!!! A WWII relic exploded and destroyed your caravan";
 }

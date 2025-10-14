@@ -8,6 +8,7 @@
 #include <sstream>
 #include <stdexcept>
 
+#include "..\\..\\Utils\\GameContext\\GameContext.h"
 using namespace std;
 
 Simulation::Simulation(int row,
@@ -50,7 +51,8 @@ Simulation::Simulation(int row,
                         break;
                     case '?':
                         item_manager.add_item(i, j);
-
+                        desert.emplace_back(i, j);
+                        break;
                     default:
                         desert.emplace_back(i, j);
                         break;
@@ -63,6 +65,7 @@ Simulation::Simulation(int row,
 std::vector<SimulationMap> Simulation::get_map_state() const {
 
     vector<SimulationMap> map;
+
     for(const auto& [i, j] : mountain) {
         map.emplace_back(Type::Mountain, i, j);
     }
@@ -107,7 +110,7 @@ string Simulation::get_simulation_info() const {
     ss << "Coins: " << wallet.get_coins() << '\n';
     ss << "Item interval: " << item_manager.get_item_interval() << '\n';
     ss << "Item duration: " << item_manager.get_item_duration() << '\n';
-    ss << "Max items: " << item_manager.get_max_itens() << '\n';
+    ss << "Max items: " << item_manager.get_max_items() << '\n';
     ss << "Sell price: " << city_manager.get_sell_price() << '\n';
     ss << "Buy price: " << city_manager.get_buy_price() << '\n';
     ss << "Caravan price: " << city_manager.get_caravan_price() << '\n';
@@ -159,19 +162,32 @@ std::string Simulation::get_goods_prices() const {
     return aux;
 }
 
-std::string Simulation::get_city_info(const std::string& city) {
+std::string Simulation::get_city_info(const std::string& city) const{
 
     try {
         char city_id = string_to_char(city);
 
-        return city_manager.get_city_info(city_id);
+        std::ostringstream os;
+        os << city_manager.get_city_info(city_id);
+
+        const auto pos = city_manager.get_city_coordinates(city_id);
+        const auto caravan_ids = caravan_manager.get_caravans_id_at(pos);
+
+        if (caravan_ids.empty())
+            os << "No caravans are currently inside this city.\n";
+        else {
+            for (const char& id : caravan_ids)
+                os << "Caravan " << id << " is inside the city.\n";
+        }
+        return os.str();
+
     }
     catch(const invalid_argument& e) {
         return e.what();
     }
 }
 
-std::string Simulation::get_caravan_info(const std::string& caravan) {
+std::string Simulation::get_caravan_info(const std::string& caravan) const{
 
     try {
         char caravan_id = string_to_char(caravan);
@@ -228,13 +244,97 @@ Status Simulation::sell_all_goods(const std::string& caravan) {
 
 }
 
-Status Simulation::move_caravan(const std::string& caravan, const std::string& pos) {
+std::pair<int, int> Simulation::direction_to_pair_int(const std::string& direction) {
 
-    // char id = string_to_char(caravan);
-    //
-    // if(id == '!')
-    //     return {false, "Bandits refused to take orders from you!"};
+    if(direction == "D") {
+        return {0, 1};
+    }
+    if(direction == "E") {
+        return {0, -1};
+    }
+     if(direction == "C") {
+        return {-1, 0};
+    }
+    if(direction == "B") {
+        return {1, 0};
+    }
+    if(direction == "CE") {
+        return {-1, -1};
+    }
+    if(direction == "CD") {
+        return {-1, 1};
+    }
+    if(direction == "BE") {
+        return {1, -1};
+    }
+    if(direction == "BD") {
+        return {1, 1};
+    }
 
-    //auto pos = caravan_manager.get_caravan_position(id);
+    throw std::invalid_argument("Invalid direction: " + direction);
+}
+
+Status Simulation::move_caravan(const std::string& caravan, const std::string& direction) {
+
+
+    try {
+        char caravan_id = string_to_char(caravan);
+
+        if(caravan_id == '!')
+            return {false, "Bandits refused to take orders from you!"};
+
+        auto current_pos = caravan_manager.get_caravan_position(caravan_id);
+
+        if(current_pos.first < 0) {
+            return {false, "Caravan doesn't exist."};
+        }
+
+        auto next_pos = direction_to_pair_int(direction);
+
+        next_pos.first += current_pos.first;
+        next_pos.second += current_pos.second;
+
+        next_pos.first  = (next_pos.first  + row) % row;
+        next_pos.second = (next_pos.second + col) % col;
+
+        if(city_manager.is_a_city(next_pos)) {
+            desert.emplace_back(current_pos);
+            caravan_manager.enter_city(caravan_id);
+            return {true, "Caravan moved successfully."};
+        }
+
+        auto it = ranges::find(desert, next_pos);
+
+        if(it == desert.end()) {
+            return {false, "You can't move there."};
+        }
+
+        if(city_manager.is_a_city(current_pos))
+            caravan_manager.leave_city(caravan_id);
+
+        desert.erase(it);
+        desert.emplace_back(current_pos);
+        caravan_manager.set_caravan_position(caravan_id, next_pos);
+
+        auto items_id = item_manager.check_nearby_items(next_pos, row, col);
+
+        GameContext ctx{caravan_manager, wallet};
+
+        for(const auto& id : items_id) {
+
+            item_manager.apply_item_effect(id, caravan_id,ctx);
+            messages.emplace_back("Caravan "s + caravan_id + " found an item!\n" + item_manager.get_item_description(id));
+            item_manager.remove_item_by_id(id);
+
+            if(!caravan_manager.exist(caravan_id)) {
+                desert.emplace_back(next_pos);
+            }
+        }
+
+        return {true, "Caravan moved successfully."};
+    }
+    catch (const invalid_argument& e) {
+        return {false, e.what()};
+    }
 
 }

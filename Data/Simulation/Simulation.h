@@ -32,7 +32,7 @@ class Simulation {
 
     static CaravanType char_to_caravan_type(char c);
     static char string_to_char(const std::string& str);
-    static std::pair<int, int> direction_to_pair_int(char direction, std::pair<int, int>);
+    static std::pair<int, int> direction_to_pair_int(const std::string& direction);
 
 public:
     Simulation(int row,
@@ -52,15 +52,15 @@ public:
     std::string get_goods_prices() const;
     std::vector<SimulationMap> get_map_state() const;
     std::string get_simulation_info() const;
-    std::string get_city_info(const std::string& city);
-    std::string get_caravan_info(const std::string& caravan);
+    std::string get_city_info(const std::string& city) const;
+    std::string get_caravan_info(const std::string& caravan) const;
 
 
 
     Status buy_caravan(const std::string& city, const std::string& caravan);
     Status buy_goods(const std::string& caravan, int qtd);
     Status sell_all_goods(const std::string& caravan);
-    Status move_caravan(const std::string& caravan, const std::string& pos);
+    Status move_caravan(const std::string& caravan, const std::string& direction);
 
 };
 
