@@ -14,12 +14,13 @@ class BuilderCaravan : public Caravan {
     static int max_water;
     static int initial_crew;
     static int speed;
+    static int turns_left_after_no_crew;
 
 
 public:
     BuilderCaravan(char id, int row, int col);
-    void move() override;
-    void reset_velocity() override;
+    std::pair<int, int> move_autonomous(const std::vector<SimulationMap>&caravans, MoveContext& mc) override;
+    void reset_speed() override;
     std::string get_info() const override;
 };
 

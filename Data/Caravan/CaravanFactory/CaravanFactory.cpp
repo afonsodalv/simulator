@@ -10,7 +10,7 @@
 #include "..\\BuilderCaravan\\BuilderCaravan.h"
 
 
-std::unique_ptr<Caravan> CaravanFactory::createCaravan(CaravanType type, int row, int col) {
+std::unique_ptr<Caravan> CaravanFactory::createCaravan(CaravanType type, int row, int col, int bandits_duration) {
     static char id = '0';
 
     if(id > '9')
@@ -24,7 +24,7 @@ std::unique_ptr<Caravan> CaravanFactory::createCaravan(CaravanType type, int row
         case CaravanType::Builder:
             return std::make_unique<BuilderCaravan>(id++,row, col);
         case CaravanType::Bandit:
-            return std::make_unique<BanditCaravan>('!', row, col);
+            return std::make_unique<BanditCaravan>('!', row, col, bandits_duration);
         default:
             return nullptr;
     }

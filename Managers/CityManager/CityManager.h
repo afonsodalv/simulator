@@ -38,7 +38,8 @@ public:
 
     std::pair<int, int> get_city_coordinates(char id) const;
     std::string get_city_info(char id) const;
-    std::vector<SimulationMap> get_cities_position() const;
+    std::vector<SimulationMap> get_cities_info() const;
+    std::vector<std::pair<int, int>> get_cities_position() const;
 };
 
 

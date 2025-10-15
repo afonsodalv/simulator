@@ -5,6 +5,7 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include <set>
 #include <vector>
 #include <utility>
 #include <string>
@@ -33,6 +34,7 @@ class Simulation {
     static CaravanType char_to_caravan_type(char c);
     static char string_to_char(const std::string& str);
     static std::pair<int, int> direction_to_pair_int(const std::string& direction);
+    void check_for_items(char caravan_id, std::pair<int, int> pos);
 
 public:
     Simulation(int row,
@@ -55,12 +57,13 @@ public:
     std::string get_city_info(const std::string& city) const;
     std::string get_caravan_info(const std::string& caravan) const;
 
-
-
     Status buy_caravan(const std::string& city, const std::string& caravan);
     Status buy_goods(const std::string& caravan, int qtd);
     Status sell_all_goods(const std::string& caravan);
     Status move_caravan(const std::string& caravan, const std::string& direction);
+    Status put_caravan_on_auto(const std::string& caravan);
+
+
 
 };
 

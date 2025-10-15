@@ -256,7 +256,8 @@ void SimulationManager::handle_simulation_commands(const std::vector<std::string
     }
     else if (cmd == "auto") {
         if (command.size() == 2) {
-            // TODO: implement auto
+            status = simulation->put_caravan_on_auto(command[1]);
+            render->render(status.message);
         } else {
             render->render("Usage: auto <on|off>");
         }

@@ -46,6 +46,7 @@ bool CityManager::create_city(char id, int i, int j) {
     }
 
     cities.emplace_back(make_unique<City>(id, i, j));
+
     return true;
 }
 
@@ -67,7 +68,7 @@ std::string CityManager::get_city_info(char id) const {
     return "City doesn't exit";
 }
 
-std::vector<SimulationMap> CityManager::get_cities_position() const {
+std::vector<SimulationMap> CityManager::get_cities_info() const {
     vector<SimulationMap> cities_info;
 
     for(const auto& city : cities) {
@@ -90,4 +91,14 @@ bool CityManager::buy_caravan_in_city(char id, CaravanType type) {
 
 bool CityManager::is_a_city(std::pair<int,int> pos) {
     return find(pos);
+}
+
+std::vector<std::pair<int, int>> CityManager::get_cities_position() const {
+
+    std::vector<std::pair<int, int>> pos;
+
+    for(const auto& city : cities) {
+        pos.emplace_back(city->get_row(), city->get_col());
+    }
+    return pos;
 }

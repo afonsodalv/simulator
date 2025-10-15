@@ -12,16 +12,18 @@ int CommercialCaravan::max_crew = 25;
 int CommercialCaravan::max_cargo = 40;
 int CommercialCaravan::max_water = 200;
 int CommercialCaravan::speed = 2;
+int CommercialCaravan::turns_left_after_no_crew = 5;
 
 CommercialCaravan::CommercialCaravan(char id, int row, int col)
-: Caravan(id, row, col, speed, initial_crew, false, max_water, max_cargo,max_water, max_cargo, max_crew,true) {}
+: Caravan(id, row, col, speed, initial_crew, turns_left_after_no_crew,false, max_water, max_cargo,max_water, max_cargo, max_crew,true) {}
 
-void CommercialCaravan::move() {
+std::pair<int, int> CommercialCaravan::move_autonomous(const std::vector<SimulationMap>&caravans, MoveContext& mc) {
 
+    return {-1, -1};
 }
 
-void CommercialCaravan::reset_velocity(){
-    set_velocity(speed);
+void CommercialCaravan::reset_speed(){
+    set_speed(speed);
 }
 
 

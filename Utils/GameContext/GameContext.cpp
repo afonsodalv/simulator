@@ -31,5 +31,5 @@ void GameContext::add_coin_percentage(double p) {
 }
 
 void GameContext::add_velocity(char id, int v) {
-    caravan_manager.add_velocity(id, v);
+    caravan_manager.add_speed(id, v);
 }

@@ -12,7 +12,7 @@
 class CaravanFactory {
 
 public:
-    static std::unique_ptr<Caravan> createCaravan(CaravanType type, int row, int col);
+    static std::unique_ptr<Caravan> createCaravan(CaravanType type, int row, int col,int bandits_duration);
 
 };
 

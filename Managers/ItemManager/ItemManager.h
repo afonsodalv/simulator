@@ -31,7 +31,8 @@ public:
     int get_max_items() const;
     std::string get_item_description(int id) const;
 
-    std::vector<SimulationMap> get_item_position() const;
+    std::vector<SimulationMap> get_item_position_map() const;
+    std::vector<std::pair<int, int>> get_items_position() const;
 
     std::vector<int> check_nearby_items(const std::pair<int, int>& next_pos,  int max_row, int max_col) const;
 

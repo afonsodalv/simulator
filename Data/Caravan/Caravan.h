@@ -5,7 +5,10 @@
 #ifndef CARAVAN_H
 #define CARAVAN_H
 #include <string>
+#include <vector>
 
+#include "..\\..\\Utils\\HelperType.h"
+#include "..\\..\\Utils\\Status.h"
 
 class Caravan {
 
@@ -14,6 +17,7 @@ class Caravan {
     int col;
     int speed;
     int crew_members;
+    int turns_left;
     bool autonomous_behavior;
     int current_water;
     int current_cargo;
@@ -26,10 +30,13 @@ public:
     virtual ~Caravan() = default;
 
 
-    Caravan(char id, int row, int col, int speed,int crew_members,bool autonomous_behavior,int max_water, int max_cargo ,int water, int cargo,int max_crew ,bool is_in_city);
+    Caravan(char id, int row, int col, int speed,int crew_members,int turns_left ,bool autonomous_behavior,int max_water, int max_cargo ,int water, int cargo,int max_crew ,bool is_in_city);
+
 
     int get_row() const;
     int get_col() const;
+
+    std::pair<int, int> get_position() const;
     int get_speed() const;
     char get_id() const;
     int get_crew_members() const;
@@ -41,17 +48,19 @@ public:
 
     virtual int add_cargo(int qtd);
     void add_crew_members(int qtd);
-    void add_velocity(int v);
+    void add_speed(int v);
 
-    void set_velocity(int v);
+    void set_speed(int v);
     void set_position(std::pair<int, int> pos);
     void set_is_in_city(bool b);
-    virtual void reset_velocity() = 0;
+    void set_autonomous_behavior(bool ab);
+    virtual void reset_speed() = 0;
     int sell_all_cargo();
 
 
-
-    virtual void move() = 0;
+    virtual void set_last_direction(std::pair<int, int> ld) {}
+    virtual std::pair<int, int> move_autonomous(const std::vector<SimulationMap>&caravans, MoveContext& mc) = 0;
+    int distance_between(std::pair<int,int> a, std::pair<int,int> b, int rows, int cols) const;
 
 
 };

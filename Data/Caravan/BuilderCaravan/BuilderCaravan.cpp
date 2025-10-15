@@ -11,16 +11,17 @@ int BuilderCaravan::max_crew = 20;
 int BuilderCaravan::max_cargo = 5;
 int BuilderCaravan::max_water = 200;
 int BuilderCaravan::speed = 1;
+int BuilderCaravan::turns_left_after_no_crew = 3;
 
 BuilderCaravan::BuilderCaravan(char id, int row, int col)
-: Caravan(id, row, col, speed,initial_crew, false, max_water, max_cargo ,max_water, max_cargo, max_crew,true) {}
+: Caravan(id, row, col, speed,initial_crew,turns_left_after_no_crew ,false, max_water, max_cargo ,max_water, max_cargo, max_crew,true) {}
 
-void BuilderCaravan::move() {
-
+std::pair<int, int> BuilderCaravan::move_autonomous(const std::vector<SimulationMap>&caravans, MoveContext& mc) {
+    return {-1, -1};
 }
 
-void BuilderCaravan::reset_velocity(){
-    set_velocity(speed);
+void BuilderCaravan::reset_speed(){
+    set_speed(speed);
 }
 
 std::string BuilderCaravan::get_info() const {
