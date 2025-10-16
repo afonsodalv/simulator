@@ -17,6 +17,7 @@ public:
     BanditCaravan(char id, int row, int col, int bandits_duration);
     std::pair<int, int> move_autonomous(const std::vector<SimulationMap>&caravans, MoveContext& mc) override;
     void reset_speed() override;
+    void consume_water() override {}
     std::string get_info() const override;
 };
 

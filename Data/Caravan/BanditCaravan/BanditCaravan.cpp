@@ -12,11 +12,10 @@ BanditCaravan::BanditCaravan(char id, int row, int col, int bandits_duration) : 
 
 std::pair<int, int> BanditCaravan::move_autonomous(const std::vector<SimulationMap>&caravans, MoveContext& mc){
 
-
     auto my_pos = get_position();
 
     std::pair target = get_closest_player_caravan_position(mc.row, mc.col, 8, caravans);
-
+    add_turns_left(-1);
     if (target.first == -1) {
 
         std::pair<int , int> next_pos = move_random(mc.row, mc.col);
@@ -43,6 +42,7 @@ std::pair<int, int> BanditCaravan::move_autonomous(const std::vector<SimulationM
     new_pos.first  = (new_pos.first  + mc.row) % mc.row;
     new_pos.second = (new_pos.second + mc.col) % mc.col;
 
+    add_turns_left(-1);
     if (std::ranges::find(mc.desert, new_pos) == mc.desert.end())
         return my_pos;
 
@@ -52,6 +52,7 @@ std::pair<int, int> BanditCaravan::move_autonomous(const std::vector<SimulationM
 void BanditCaravan::reset_speed(){
     set_speed(speed);
 }
+
 std::string BanditCaravan::get_info() const {
     return "Bandits refuse to tell you what they have!";
 }

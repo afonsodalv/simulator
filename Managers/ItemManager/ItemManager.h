@@ -38,6 +38,9 @@ public:
     void apply_item_effect(int id, char caravan_id,GameContext& ctx);
     void remove_item_by_id(int id);
 
+    void handle_items_spawn(int turns, const std::vector<std::pair<int,int>>& desert);
+    void handle_items_life_time();
+
 };
 
 

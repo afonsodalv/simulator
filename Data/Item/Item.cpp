@@ -25,3 +25,9 @@ int Item::get_col() const{
 int Item::get_id() const {
     return id;
 }
+
+void Item::decrement_turns_remaining() {
+
+    if(--turns_remaining < 0)
+        turns_remaining = 0;
+}

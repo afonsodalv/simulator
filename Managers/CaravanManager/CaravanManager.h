@@ -23,6 +23,7 @@ class CaravanManager {
     Caravan* find(char id) const;
 
     static void update_map_positions(Caravan* caravan,const std::pair<int,int>& next_pos,MoveContext& mc);
+    std::vector<Caravan*> get_bandits_caravans() const;
 public:
 
     CaravanManager(int bandits_interval,int bandits_duration);
@@ -37,6 +38,7 @@ public:
 
     void add_caravan(CaravanType type, int row, int col);
     void remove_caravan(char id);
+    void remove_caravan(const std::pair<int, int> pos);
 
     void add_speed(char id, int p);
     void add_crew_members(char id, int qtd);
@@ -57,6 +59,11 @@ public:
     Status move_caravan(char id, std::pair<int, int> pos, MoveContext& mc);
     Status put_caravan_on_auto(char id);
 
+    std::vector<std::string> combat_phase(int row, int col);
+    std::vector<std::string>handle_caravans_life_time();
+
+    void handle_speed_and_water_consumption();
+    void handle_bandits_spawn(int turns, std::vector<std::pair<int,int>>& desert);
 };
 
 

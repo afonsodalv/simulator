@@ -4,6 +4,8 @@
 
 #include "CaravanManager.h"
 
+#include <sstream>
+
 #include "..\\..\\Data\\Caravan\\CaravanFactory\\CaravanFactory.h"
 
 CaravanManager::CaravanManager(int bandits_interval,int bandits_duration) :bandits_interval(bandits_interval), bandits_duration(bandits_duration){}
@@ -35,6 +37,15 @@ void CaravanManager::add_caravan(CaravanType type, int row, int col) {
 void CaravanManager::remove_caravan(char id) {
     for (auto it = caravans.begin(); it != caravans.end(); ++it) {
         if ((*it)->get_id() == id) {
+            caravans.erase(it);
+            break;
+        }
+    }
+}
+
+void CaravanManager::remove_caravan(const std::pair<int, int> pos) {
+    for (auto it = caravans.begin(); it != caravans.end(); ++it) {
+        if ((*it)->get_position() == pos) {
             caravans.erase(it);
             break;
         }
@@ -243,4 +254,112 @@ Status CaravanManager::put_caravan_on_auto(char id) {
 
     caravan->set_autonomous_behavior(true);
     return {true, "Caravan is on autonomous behavior."};
+}
+
+std::vector<Caravan*> CaravanManager::get_bandits_caravans() const {
+    std::vector<Caravan*> barbarians;
+    for (auto& c : caravans) {
+        if (c->get_id() == '!')
+            barbarians.push_back(c.get());
+    }
+    return barbarians;
+}
+
+std::vector<std::string> CaravanManager::combat_phase(int row, int col) {
+
+    std::vector<std::string> results;
+    auto bandits = get_bandits_caravans();
+
+    for (auto it = caravans.begin(); it != caravans.end(); ++it) {
+
+        if((*it)->get_id() == '!' || (*it)->get_is_in_city())
+           continue;
+
+        auto caravan_pos = (*it)->get_position();
+
+        for (int row_chek = -1; row_chek <= 1; ++row_chek) {
+            for (int col_check = -1; col_check <= 1; ++col_check) {
+                if (row_chek == 0 && col_check == 0) continue;
+
+                int pos_row = (caravan_pos.first  + row_chek + row) % row;
+                int pos_col = (caravan_pos.second + col_check + col) % col;
+
+                for (const auto& enemy : bandits) {
+                    if (enemy->get_position() == std::pair(pos_row, pos_col)) {
+
+                        int bandit_crew = enemy->get_crew_members();
+                        int player_crew = (*it)->get_crew_members();
+
+
+                        if (bandit_crew == 0 || player_crew == 0)
+                            continue;
+
+                        int rand_bandit = rand() % bandit_crew;
+                        int rand_player = rand() % player_crew;
+
+                        Caravan* winner = nullptr;
+                        Caravan* loser  = nullptr;
+
+                        if (rand_bandit > rand_player) {
+                            winner = enemy;
+                            loser  = it->get();
+                        } else {
+                            winner = it->get();
+                            loser  = enemy;
+                        }
+
+                        int winner_crew = winner->get_crew_members();
+                        int loss_winner = static_cast<int>(winner_crew * 0.2);
+                        int loss_loser  = loss_winner * 2;
+
+                        winner->add_crew_members(-loss_winner);
+                        loser->add_crew_members(-loss_loser);
+
+                        std::ostringstream msg;
+                        msg << winner->get_id() << " won the match vs "
+                            << loser->get_id() << " dealing "
+                            << loss_loser << " damage to the opponent, but lost "
+                            << loss_winner << " crew members.";
+
+                        if(enemy->get_crew_members() == 0)
+                            remove_caravan(enemy->get_position());
+                        results.emplace_back(msg.str());
+                    }
+                }
+            }
+        }
+    }
+
+    return results;
+}
+
+void CaravanManager::handle_speed_and_water_consumption() {
+    for (auto it = caravans.begin(); it != caravans.end(); ++it) {
+        (*it)->consume_water();
+        (*it)->reset_speed();
+    }
+}
+
+void CaravanManager::handle_bandits_spawn(int turns, std::vector<std::pair<int,int>>& desert) {
+
+    if(turns % bandits_interval != 0) return;
+    if (desert.empty()) return;
+
+    int idx = rand() % desert.size();
+    add_caravan(CaravanType::Bandit, desert[idx].first, desert[idx].second);
+    desert.erase(desert.begin() + idx);
+}
+
+std::vector<std::string> CaravanManager::handle_caravans_life_time() {
+
+    std::vector<std::string> msg;
+
+    for (auto it = caravans.begin(); it != caravans.end(); ++it) {
+        if(((*it)->get_crew_members() == 0 && !(*it)->get_autonomous_behavior()) || (*it)->get_turns_left() == 0) {
+            msg.emplace_back( "Caravan " + std::to_string((*it)->get_id()) + " was destroyed.");
+            caravans.erase(it);
+        }
+    }
+
+    return msg;
 }

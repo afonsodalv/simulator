@@ -307,7 +307,7 @@ Status Simulation::move_caravan(const std::string& caravan, const std::string& d
 void Simulation::check_for_items(char caravan_id, pair<int, int> pos) {
     auto items_id = item_manager.check_nearby_items(pos, row, col);
 
-    GameContext ctx{caravan_manager, wallet};
+    GameContext ctx{caravan_manager, wallet, pos};
 
     for(const auto& id : items_id) {
 
@@ -332,6 +332,20 @@ void Simulation::next_turn() {
     for(const auto& id : caravans_ids) {
         check_for_items(id, caravan_manager.get_caravan_position(id));
     }
+
+
+    for(auto result : caravan_manager.combat_phase(row, col)) {
+        messages.push_back(result);
+    }
+
+    for(auto result : caravan_manager.handle_caravans_life_time()) {
+        messages.push_back(result);
+    }
+    caravan_manager.handle_speed_and_water_consumption();
+    caravan_manager.handle_bandits_spawn(turn, desert);
+    item_manager.handle_items_life_time();
+    item_manager.handle_items_spawn(turn, desert);
+
 }
 
 Status Simulation::put_caravan_on_auto(const std::string& caravan) {

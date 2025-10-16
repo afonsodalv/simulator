@@ -89,3 +89,25 @@ std::string ItemManager::get_item_description(int id) const {
     if(auto item = find(id)) return item->get_description();
     return "Item not found.";
 }
+
+void ItemManager::handle_items_spawn(int turns, const std::vector<std::pair<int,int>>& desert) {
+
+    if(turns % item_interval != 0) return;
+    if (desert.empty()) return;
+
+    int idx = rand() % desert.size();
+    add_item(desert[idx].first, desert[idx].second);
+}
+
+void ItemManager::handle_items_life_time() {
+
+    for(auto it = items.begin(); it != items.end(); ++it) {
+
+        (*it)->decrement_turns_remaining();
+
+        if((*it)->get_turns_remaining() == 0) {
+            items.erase(it);
+        }
+    }
+}
+

@@ -21,6 +21,7 @@ public:
     BuilderCaravan(char id, int row, int col);
     std::pair<int, int> move_autonomous(const std::vector<SimulationMap>&caravans, MoveContext& mc) override;
     void reset_speed() override;
+    void consume_water() override {}; //TODO: change this
     std::string get_info() const override;
 };
 

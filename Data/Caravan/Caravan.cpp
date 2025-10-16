@@ -33,12 +33,15 @@ bool Caravan::get_autonomous_behavior() const {
 int  Caravan::get_crew_members() const {
     return crew_members;
 }
+int Caravan::get_turns_left() const {
+    return turns_left;
+}
 
 int  Caravan::get_cargo() const {
     return current_cargo;
 }
 
-int Caravan::get_water() const {
+int Caravan::get_current_water() const {
     return current_water;
 }
 
@@ -79,6 +82,16 @@ void Caravan::add_speed(int v) {
         speed = 0;
 }
 
+void Caravan::add_turns_left(int t) {
+    turns_left += t;
+    if (turns_left < 0)
+        turns_left = 0;
+}
+
+void Caravan::decrement_water(int qtd) {
+    int removed = std::min(qtd, current_water);
+    current_water -= removed;
+}
 void Caravan::set_speed(int v) {
     if(v>0)
         speed = v;

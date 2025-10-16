@@ -40,21 +40,24 @@ public:
     int get_speed() const;
     char get_id() const;
     int get_crew_members() const;
+    int get_turns_left() const;
     bool get_autonomous_behavior() const;
     int get_cargo() const;
-    int get_water() const;
+    int get_current_water() const;
     bool get_is_in_city() const;
     virtual std::string get_info() const = 0;
 
     virtual int add_cargo(int qtd);
     void add_crew_members(int qtd);
     void add_speed(int v);
-
+    void add_turns_left(int t);
+    void decrement_water(int qtd);
     void set_speed(int v);
     void set_position(std::pair<int, int> pos);
     void set_is_in_city(bool b);
     void set_autonomous_behavior(bool ab);
     virtual void reset_speed() = 0;
+    virtual void consume_water() = 0;
     int sell_all_cargo();
 
 

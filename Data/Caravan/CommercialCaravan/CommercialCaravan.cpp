@@ -25,7 +25,7 @@ std::pair<int, int> CommercialCaravan::move_autonomous(const std::vector<Simulat
 
     if (get_crew_members() == 0) {
 
-        turns_left_after_no_crew--;
+        add_turns_left(-1);
         std::pair<int , int> next_pos = move_random(mc.row, mc.col);
 
         if (std::ranges::find(mc.desert, next_pos) != mc.desert.end())
@@ -83,9 +83,23 @@ std::string CommercialCaravan::get_info() const {
         <<"Type: Commercial\n"
         << "Crew members: " << get_crew_members() << '\n'
         << "Autonomous behavior: " << (get_autonomous_behavior() ? "Yes" : "No") << '\n'
-        << "Water: " << get_water() << '\n'
+        << "Water: " << get_current_water() << '\n'
         << "Cargo: " << get_cargo() << '\n'
         << "Speed: " << get_speed() << '\n'
         << "Visitng a City: " << (get_is_in_city() ? "Yes" : "No") << '\n';
     return oss.str();
+}
+
+void CommercialCaravan::consume_water(){
+
+    if(get_current_water() == 0) {
+        add_crew_members(-1);
+        return;
+    }
+
+    if(get_crew_members() < max_crew/2) {
+        decrement_water(1);
+    }
+    else
+        decrement_water(2);
 }

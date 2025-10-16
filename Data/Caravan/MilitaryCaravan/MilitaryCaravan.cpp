@@ -25,7 +25,7 @@ std::pair<int, int> MilitaryCaravan::move_autonomous(const std::vector<Simulatio
         my_pos.first += last_direction.first;
         my_pos.second += last_direction.second;
         auto it_desert = std::ranges::find(mc.desert, my_pos);
-        turns_left_after_no_crew--;
+        add_turns_left(-1);
 
         if(it_desert == mc.desert.end()) {
             return  get_position();
@@ -77,10 +77,26 @@ std::string MilitaryCaravan::get_info() const {
         <<"Type: Military\n"
         << "Crew members: " << get_crew_members() << '\n'
         << "Autonomous behavior: " << (get_autonomous_behavior() ? "Yes" : "No") << '\n'
-        << "Water: " << get_water() << '\n'
+        << "Water: " << get_current_water() << '\n'
         << "Cargo: " << get_cargo() << '\n'
         << "Speed: " << get_speed() << '\n'
         << "Visitng a City: " << (get_is_in_city() ? "Yes" : "No") << '\n';
     return oss.str();
+}
+
+void MilitaryCaravan::consume_water(){
+
+    if(get_current_water() == 0) {
+        //Should add -1 water as in the assignment description but since this project
+        //is not for grading, I won't put because doesn't make sense.
+        add_crew_members(-1);
+        return;
+    }
+
+    if(get_crew_members() < max_crew/2) {
+        decrement_water(1);
+    }
+    else
+        decrement_water(3);
 }
 

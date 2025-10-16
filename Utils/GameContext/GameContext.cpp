@@ -5,10 +5,14 @@
 #include "GameContext.h"
 #include "..\\..\\Managers\\CaravanManager\\CaravanManager.h"
 #include "..\\IEconomy.h"
-GameContext::GameContext(CaravanManager& caravans, IEconomy& economy) : caravan_manager(caravans), economy(economy){}
+GameContext::GameContext(CaravanManager& caravans, IEconomy& economy, std::pair<int, int> pos) : caravan_manager(caravans), economy(economy), pos(pos){}
 
 void GameContext::destroy(char id) {
-    caravan_manager.remove_caravan(id);
+
+    if(id == '!')
+        caravan_manager.remove_caravan(pos);
+    else
+        caravan_manager.remove_caravan(id);
 }
 
 void GameContext::lose_crew_percentage(char id, double p) {

@@ -30,7 +30,7 @@ std::string BuilderCaravan::get_info() const {
         <<"Type: Builder Caravan\n"
         << "Crew members: " << get_crew_members() << '\n'
         << "Autonomous behavior: " << (get_autonomous_behavior() ? "Yes" : "No") << '\n'
-        << "Water: " << get_water() << '\n'
+        << "Water: " << get_current_water() << '\n'
         << "Cargo: " << get_cargo() << '\n'
         << "Speed: " << get_speed() << '\n'
         << "Visitng a City: " << (get_is_in_city() ? "Yes" : "No") << '\n';

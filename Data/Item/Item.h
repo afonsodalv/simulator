@@ -29,6 +29,7 @@ public:
 
     virtual std::string get_description() const = 0;
     virtual void apply_effect(GameContext& ctx, char id) = 0 ;
+    void decrement_turns_remaining();
 
 };
 
