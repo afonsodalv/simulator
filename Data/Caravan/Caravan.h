@@ -60,8 +60,10 @@ public:
 
     virtual void set_last_direction(std::pair<int, int> ld) {}
     virtual std::pair<int, int> move_autonomous(const std::vector<SimulationMap>&caravans, MoveContext& mc) = 0;
-    int distance_between(std::pair<int,int> a, std::pair<int,int> b, int rows, int cols) const;
-
+    static int distance_between(std::pair<int,int> a, std::pair<int,int> b, int rows, int cols) ;
+    std::pair<int, int> get_closest_target_position(int row, int col,int dist, char target_id,const std::vector<SimulationMap>&target) const;
+    std::pair<int, int> get_closest_player_caravan_position(int row, int col, int max_dist,const std::vector<SimulationMap>&targets) const;
+    std::pair<int, int> move_random(int max_row, int max_col) const;
 
 };
 

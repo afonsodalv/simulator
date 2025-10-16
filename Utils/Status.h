@@ -13,7 +13,7 @@ struct Status {
 struct MoveContext {
     std::vector<std::pair<int,int>>& desert;
     const std::vector<std::pair<int,int>>& cities_pos;
-    const std::vector<std::pair<int,int>>& items;
+    const std::vector<SimulationMap>& items;
     int row, col;
 };
 

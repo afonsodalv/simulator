@@ -42,19 +42,11 @@ std::vector<SimulationMap> ItemManager::get_item_position_map() const {
     std::vector<SimulationMap> items_info;
 
     for(const auto& item : items) {
-        items_info.emplace_back(Type::Item, item->get_row(), item->get_col());
+        items_info.emplace_back(Type::Item, item->get_row(), item->get_col(), '?');
     }
     return items_info;
 }
 
-std::vector<std::pair<int, int>> ItemManager::get_items_position() const {
-    std::vector<std::pair<int, int>> items_pos;
-
-    for(const auto& item : items) {
-        items_pos.emplace_back(item->get_row(), item->get_col());
-    }
-    return items_pos;
-}
 bool ItemManager::is_nearby(const std::pair<int, int>& pos, const std::pair<int, int>& next_pos, int max_row, int max_col) const {
 
     int dr = (next_pos.first  - pos.first  + max_row) % max_row;

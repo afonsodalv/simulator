@@ -290,7 +290,7 @@ Status Simulation::move_caravan(const std::string& caravan, const std::string& d
         }
 
         auto next_pos = direction_to_pair_int(direction);
-        MoveContext mc {desert, city_manager.get_cities_position(), item_manager.get_items_position(), row, col};
+        MoveContext mc {desert, city_manager.get_cities_position(), item_manager.get_item_position_map(), row, col};
         auto result = caravan_manager.move_caravan(caravan_id, next_pos, mc);
 
         if(result.ok)
@@ -325,13 +325,13 @@ void Simulation::next_turn() {
 
     ++turn;
 
-    MoveContext mc {desert, city_manager.get_cities_position(), item_manager.get_items_position(), row, col};
+    MoveContext mc {desert, city_manager.get_cities_position(), item_manager.get_item_position_map(), row, col};
 
     auto caravans_ids = caravan_manager.move_autonomous(mc);
 
-    // for(const auto& id : caravans_ids) {
-    //     check_for_items(id, caravan_manager.get_caravan_position(id));
-    // }
+    for(const auto& id : caravans_ids) {
+        check_for_items(id, caravan_manager.get_caravan_position(id));
+    }
 }
 
 Status Simulation::put_caravan_on_auto(const std::string& caravan) {

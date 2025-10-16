@@ -129,24 +129,27 @@ void SimulationManager::start() {
             continue;
         }
 
-        if(!simulation_running) {
+        if(simulation_running) {
+            handle_simulation_commands(command);
+        }
+        else {
+
             if (command.size() == 1 && command[0] == "sair") {
                 render->render("Releasing resources...");
                 break;
             }
 
-            if(command.size() == 2 && command[0]=="config") {
+            if (command.size() == 2 && command[0]=="config") {
                 auto s = handleConfigCommand(command[1]);
                 render->render(s.message);
 
                 if (s.ok) {
                     doRender();
                 }
-                continue;
             }
+            else
+                render->render("Unknown command");
         }
-
-        handle_simulation_commands(command);
     }
 }
 

@@ -34,23 +34,7 @@ std::pair<int, int> MilitaryCaravan::move_autonomous(const std::vector<Simulatio
     }
 
 
-    std::pair target = {-1, -1};
-    int min_dist = 999;
-
-    for(const auto& caravan : caravans) {
-
-        if(caravan.id != '!')
-            continue;
-
-        std::pair caravan_pos = {caravan.row, caravan.col};
-
-        int dist = distance_between(my_pos, caravan_pos, mc.row, mc.col);
-
-        if(dist <= 6 && dist < min_dist) {
-            min_dist = dist;
-            target = caravan_pos;
-        }
-    }
+    std::pair target = get_closest_target_position(mc.row, mc.col, 6,'!' ,caravans);
 
     if (target.first == -1)
         return my_pos;
@@ -69,6 +53,9 @@ std::pair<int, int> MilitaryCaravan::move_autonomous(const std::vector<Simulatio
         my_pos.first + direction.first,
         my_pos.second + direction.second
     };
+
+    new_pos.first  = (new_pos.first  + mc.row) % mc.row;
+    new_pos.second = (new_pos.second + mc.col) % mc.col;
 
     if (std::ranges::find(mc.desert, new_pos) == mc.desert.end())
         return my_pos;

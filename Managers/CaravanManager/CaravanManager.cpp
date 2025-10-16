@@ -150,6 +150,10 @@ std::vector<char> CaravanManager::move_autonomous(MoveContext& mc) {
 
     for (auto it = caravans.begin(); it != caravans.end(); ++it) {
         if ((*it)->get_autonomous_behavior()) {
+
+            if((*it)->get_speed() == 0)
+                continue;
+
             auto next_pos = (*it)->move_autonomous(caravans_pos, mc);
 
             if(next_pos.first == -1)

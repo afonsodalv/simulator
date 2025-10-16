@@ -107,7 +107,7 @@ void Caravan::set_is_in_city(bool b) {
     is_in_city = b;
 }
 
-int Caravan::distance_between(std::pair<int,int> a, std::pair<int,int> b, int rows, int cols) const {
+int Caravan::distance_between(std::pair<int,int> a, std::pair<int,int> b, int rows, int cols) {
     int dr = std::abs(a.first  - b.first);
     int dc = std::abs(a.second - b.second);
     dr = std::min(dr, rows - dr);
@@ -115,6 +115,69 @@ int Caravan::distance_between(std::pair<int,int> a, std::pair<int,int> b, int ro
     return std::max(dr, dc);
 }
 
+std::pair<int, int> Caravan::get_closest_target_position(int row, int col, int max_dist, char target_id,const std::vector<SimulationMap>&targets) const{
+    auto my_pos = get_position();
+
+    std::pair pos = {-1, -1};
+    int min_dist = 999;
+
+    for(const auto& target : targets) {
+
+        if(target.id != target_id)
+            continue;
+
+        std::pair target_pos = {target.row, target.col};
+
+        int dist = distance_between(my_pos, target_pos, row, col);
+
+        if(dist <= max_dist && dist < min_dist) {
+            min_dist = dist;
+            pos = target_pos;
+        }
+    }
+
+    return pos;
+}
+
+std::pair<int, int> Caravan::get_closest_player_caravan_position(int row, int col, int max_dist,const std::vector<SimulationMap>&targets) const{
+    auto my_pos = get_position();
+
+    std::pair pos = {-1, -1};
+    int min_dist = 999;
+
+    for(const auto& target : targets) {
+
+        if(target.id == '!')
+            continue;
+
+        if (target.row == my_pos.first && target.col == my_pos.second) continue;
+
+        std::pair target_pos = {target.row, target.col};
+
+        int dist = distance_between(my_pos, target_pos, row, col);
+
+        if(dist <= max_dist && dist < min_dist) {
+            min_dist = dist;
+            pos = target_pos;
+        }
+    }
+
+    return pos;
+}
+
 void Caravan::set_autonomous_behavior(bool ab) {
     autonomous_behavior = ab;
+}
+
+std::pair<int, int> Caravan::move_random(int max_row, int max_col) const {
+
+    std::pair<int , int> next_pos;
+
+    next_pos.first = row + (rand() % 3 - 1);
+    next_pos.second = col + (rand() % 3 - 1);
+
+    next_pos.first  = (next_pos.first  + max_row) % max_row;
+    next_pos.second = (next_pos.second +  max_col) %  max_col;
+
+    return next_pos;
 }
