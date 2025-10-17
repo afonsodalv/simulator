@@ -334,12 +334,12 @@ void Simulation::next_turn() {
     }
 
 
-    for(auto result : caravan_manager.combat_phase(row, col)) {
-        messages.push_back(result);
+    for(const auto& result : caravan_manager.combat_phase(row, col)) {
+        messages.emplace_back(result);
     }
 
-    for(auto result : caravan_manager.handle_caravans_life_time()) {
-        messages.push_back(result);
+    for(const auto& result : caravan_manager.handle_caravans_life_time(desert)) {
+        messages.emplace_back(result);
     }
     caravan_manager.handle_speed_and_water_consumption();
     caravan_manager.handle_bandits_spawn(turn, desert);

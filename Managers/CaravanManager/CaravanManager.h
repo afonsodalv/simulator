@@ -60,7 +60,7 @@ public:
     Status put_caravan_on_auto(char id);
 
     std::vector<std::string> combat_phase(int row, int col);
-    std::vector<std::string>handle_caravans_life_time();
+    std::vector<std::string>handle_caravans_life_time(std::vector<std::pair<int,int>>& desert);
 
     void handle_speed_and_water_consumption();
     void handle_bandits_spawn(int turns, std::vector<std::pair<int,int>>& desert);

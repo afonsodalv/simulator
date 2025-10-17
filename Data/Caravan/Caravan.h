@@ -56,6 +56,7 @@ public:
     void set_position(std::pair<int, int> pos);
     void set_is_in_city(bool b);
     void set_autonomous_behavior(bool ab);
+    void set_turns_left(int t);
     virtual void reset_speed() = 0;
     virtual void consume_water() = 0;
     int sell_all_cargo();

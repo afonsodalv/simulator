@@ -194,3 +194,10 @@ std::pair<int, int> Caravan::move_random(int max_row, int max_col) const {
 
     return next_pos;
 }
+
+void Caravan::set_turns_left(int t) {
+
+    if(t<0)
+        turns_left = 0;
+    turns_left = t;
+}

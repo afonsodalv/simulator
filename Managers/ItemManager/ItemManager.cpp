@@ -101,13 +101,14 @@ void ItemManager::handle_items_spawn(int turns, const std::vector<std::pair<int,
 
 void ItemManager::handle_items_life_time() {
 
-    for(auto it = items.begin(); it != items.end(); ++it) {
+    for(auto it = items.begin(); it != items.end(); ) {
 
         (*it)->decrement_turns_remaining();
 
-        if((*it)->get_turns_remaining() == 0) {
-            items.erase(it);
-        }
+        if((*it)->get_turns_remaining() == 0)
+            it = items.erase(it);
+        else
+            ++it;
     }
 }
 

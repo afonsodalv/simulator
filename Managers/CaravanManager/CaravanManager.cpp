@@ -167,7 +167,7 @@ std::vector<char> CaravanManager::move_autonomous(MoveContext& mc) {
 
             auto next_pos = (*it)->move_autonomous(caravans_pos, mc);
 
-            if(next_pos.first == -1)
+            if(next_pos.first == -1 || next_pos == (*it)->get_position())
                 continue;
 
             update_map_positions(it->get(), next_pos,mc);
@@ -322,7 +322,10 @@ std::vector<std::string> CaravanManager::combat_phase(int row, int col) {
                             << loss_winner << " crew members.";
 
                         if(enemy->get_crew_members() == 0)
-                            remove_caravan(enemy->get_position());
+                            enemy->set_turns_left(0);
+                        if((*it)->get_crew_members() == 0)
+                            (*it)->set_turns_left(0);
+
                         results.emplace_back(msg.str());
                     }
                 }
@@ -335,7 +338,10 @@ std::vector<std::string> CaravanManager::combat_phase(int row, int col) {
 
 void CaravanManager::handle_speed_and_water_consumption() {
     for (auto it = caravans.begin(); it != caravans.end(); ++it) {
-        (*it)->consume_water();
+
+        if(!(*it)->get_is_in_city())
+            (*it)->consume_water();
+
         (*it)->reset_speed();
     }
 }
@@ -350,14 +356,18 @@ void CaravanManager::handle_bandits_spawn(int turns, std::vector<std::pair<int,i
     desert.erase(desert.begin() + idx);
 }
 
-std::vector<std::string> CaravanManager::handle_caravans_life_time() {
+std::vector<std::string> CaravanManager::handle_caravans_life_time(std::vector<std::pair<int,int>>& desert) {
 
     std::vector<std::string> msg;
 
-    for (auto it = caravans.begin(); it != caravans.end(); ++it) {
-        if(((*it)->get_crew_members() == 0 && !(*it)->get_autonomous_behavior()) || (*it)->get_turns_left() == 0) {
-            msg.emplace_back( "Caravan " + std::to_string((*it)->get_id()) + " was destroyed.");
-            caravans.erase(it);
+    for (auto it = caravans.begin(); it != caravans.end();) {
+        if((*it)->get_turns_left() == 0) {
+            msg.emplace_back( "Caravan " + std::string(1, (*it)->get_id()) + " was destroyed.");
+            desert.emplace_back((*it)->get_position());
+            it = caravans.erase(it);
+        }
+        else {
+            ++it;
         }
     }
 
